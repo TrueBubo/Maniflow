@@ -11,6 +11,8 @@ public final class CLIOptions {
     private CLIOptions() {
     }
 
+    /// Gets options
+    /// @param args Arguments given to the program
     public static Options get(String[] args) {
         if (options == null) {
             options = new Options();
@@ -19,7 +21,8 @@ public final class CLIOptions {
         return options;
     }
 
-
+    /// Parses all the options given
+    /// @param args Arguments given to the program
     private static void setParsedOptions(String[] args) {
         setProjectOptions();
         setStatsOption();
