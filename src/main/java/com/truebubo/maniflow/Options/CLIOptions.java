@@ -6,24 +6,44 @@ import org.apache.commons.cli.Options;
 import java.math.BigDecimal;
 
 public final class CLIOptions {
+    public enum SupportedOptions {
+        HELP("help"),
+        VERSION("version"),
+        STATS("stats"),
+        ID("id"),
+        CURRENCY("currency"),
+        INCOME("add-income"),
+        LIST_INCOME("list-income"),
+        CHANGE_INCOME("change-income"),
+        EXPANSE("add-expanse"),
+        LIST_EXPANSE("list-expanse"),
+        CHANGE_EXPANSE("change-expanse"),
+        DEBT("add-debt"),
+        INTEREST("yearly-interest"),
+        LIST_DEBT("list-debt"),
+        PAY_DEBT("pay-debt"),;
+        public final String longOption;
+        SupportedOptions(String longOption) {
+            this.longOption = longOption;
+        }
+    }
+
     private static Options options;
 
     private CLIOptions() {
     }
 
     /// Gets options
-    /// @param args Arguments given to the program
-    public static Options get(String[] args) {
+    public static Options get() {
         if (options == null) {
             options = new Options();
-            setParsedOptions(args);
+            setParsedOptions();
         }
         return options;
     }
 
     /// Parses all the options given
-    /// @param args Arguments given to the program
-    private static void setParsedOptions(String[] args) {
+    private static void setParsedOptions() {
         setProjectOptions();
         setStatsOption();
         setIDOption();
@@ -94,7 +114,7 @@ public final class CLIOptions {
                 Option.builder()
                         .desc("Add income")
                         .option("i")
-                        .longOpt("income")
+                        .longOpt("add-income")
                         .type(BigDecimal.class)
                         .argName("Income")
                         .build()
@@ -126,7 +146,7 @@ public final class CLIOptions {
         options.addOption(
                 Option.builder()
                         .option("e")
-                        .longOpt("expense")
+                        .longOpt("add-expense")
                         .type(BigDecimal.class)
                         .argName("Expense")
                         .desc("Add expense")
