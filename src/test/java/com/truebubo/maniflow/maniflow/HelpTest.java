@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class HelpTest {
     @Test
     void showHelpCLI() {
-        Options options = CLIOptions.get(new String[]{});
+        Options options = CLIOptions.get();
         Help.showHelpCLI(options);
     }
 }
