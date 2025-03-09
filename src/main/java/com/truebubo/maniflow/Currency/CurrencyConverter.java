@@ -2,6 +2,6 @@ package com.truebubo.maniflow.Currency;
 
 import java.math.BigDecimal;
 
-public interface Converter {
+public interface CurrencyConverter {
     BigDecimal convert(CurrencyDesignation from, CurrencyDesignation to);
 }
