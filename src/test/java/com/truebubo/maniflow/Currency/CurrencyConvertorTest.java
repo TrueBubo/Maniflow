@@ -8,6 +8,7 @@ class CurrencyConvertorTest {
     CurrencyConverter convertor = new PolygonCurrencyConvertor();
     @Test
     void convert() {
+        convertor.convert(CurrencyDesignation.EUR, CurrencyDesignation.USD);
         assertTrue(true);
     }
 }
