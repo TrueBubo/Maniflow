@@ -1,4 +1,4 @@
-package com.truebubo.maniflow.Currency;
+package com.truebubo.maniflow.Money;
 
 import java.util.HashMap;
 import java.util.Map;

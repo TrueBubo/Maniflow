@@ -1,4 +1,4 @@
-package com.truebubo.maniflow.Currency;
+package com.truebubo.maniflow.Money;
 
 public class UnsupportedCurrencyException extends UnsupportedOperationException {
     public UnsupportedCurrencyException(String message) {

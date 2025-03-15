@@ -1,6 +1,5 @@
-package com.truebubo.maniflow.Currency;
+package com.truebubo.maniflow.Money;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 public interface CurrencyConverter {

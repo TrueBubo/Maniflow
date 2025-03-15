@@ -1,30 +1,27 @@
-package com.truebubo.maniflow.Currency.CurrencyTypes;
+package com.truebubo.maniflow.Money.CurrencyTypes;
 
-import com.truebubo.maniflow.Currency.ConversionFailedException;
-import com.truebubo.maniflow.Currency.CurrencyConverterFactory;
-import com.truebubo.maniflow.Currency.CurrencyDesignation;
+import com.truebubo.maniflow.Money.ConversionFailedException;
+import com.truebubo.maniflow.Money.CurrencyConverterFactory;
+import com.truebubo.maniflow.Money.CurrencyDesignation;
 import org.springframework.lang.NonNull;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
 
-/**
- * Holds the value of money
- * @param <T> Currency itself. Used for making operation only between the same currency
- */
-public abstract sealed class Currency<T extends Currency<T>> permits CZK, EUR, GBP, USD {
+/// Holds the value of money
+/// @param <T> Currency itself. Used for making operation only between the same currency
+public abstract sealed class Money<T extends Money<T>> permits CZK, EUR, GBP, USD {
     private final @NonNull CurrencyDesignation designation;
     private final @NonNull BigDecimal amount;
 
-    protected Currency(@NonNull BigDecimal amount, @NonNull CurrencyDesignation designation) {
+    protected Money(@NonNull BigDecimal amount, @NonNull CurrencyDesignation designation) {
         this.amount = amount;
         this.designation = designation;
     }
 
+    /// Gets currency designation of money held
     public final CurrencyDesignation designation() {return designation;}
 
-    public final <ToCurrency extends Currency<ToCurrency>> ToCurrency to(@NonNull ToCurrency toCurrencyInstance) throws ConversionFailedException {
+    public final <ToCurrency extends Money<ToCurrency>> ToCurrency to(@NonNull ToCurrency toCurrencyInstance) throws ConversionFailedException {
         var convertor = CurrencyConverterFactory.getConverter();
         var toDesignation = toCurrencyInstance.designation();
         double exchangeRate = convertor.convert(designation, toDesignation).orElseThrow(

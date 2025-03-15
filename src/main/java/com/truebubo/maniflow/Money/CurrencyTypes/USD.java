@@ -1,11 +1,11 @@
-package com.truebubo.maniflow.Currency.CurrencyTypes;
+package com.truebubo.maniflow.Money.CurrencyTypes;
 
-import com.truebubo.maniflow.Currency.CurrencyDesignation;
+import com.truebubo.maniflow.Money.CurrencyDesignation;
 import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 
-public final class USD extends Currency<USD> {
+public final class USD extends Money<USD> {
     public final static USD Cent = new USD(BigDecimal.valueOf(0.01));
     public final static USD Dollar = new USD(BigDecimal.ONE);
 

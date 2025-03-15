@@ -5,6 +5,7 @@ import org.apache.commons.cli.Options;
 
 import java.math.BigDecimal;
 
+/// Used for handling of CLI arguments given to the application
 public final class CLIOptions {
     public enum SupportedOptions {
         HELP("help"),

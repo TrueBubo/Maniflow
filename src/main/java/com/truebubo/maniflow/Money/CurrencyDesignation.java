@@ -1,12 +1,13 @@
-package com.truebubo.maniflow.Currency;
+package com.truebubo.maniflow.Money;
 
+/// 3 letter codes of currencies
 public enum CurrencyDesignation {
     USD,
     EUR,
-
     GBP,
     CZK;
 
+    /// Parses currency designation from a string
     public static CurrencyDesignation fromString(String designation) throws UnsupportedCurrencyException {
         return switch (designation.toUpperCase()) {
             case "USD" -> USD;

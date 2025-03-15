@@ -1,5 +1,6 @@
-package com.truebubo.maniflow.Currency;
+package com.truebubo.maniflow.Money;
 
+/// Used for providing a way for all the applications to use the same converter
 public class CurrencyConverterFactory {
     private static CurrencyConverter converter;
 

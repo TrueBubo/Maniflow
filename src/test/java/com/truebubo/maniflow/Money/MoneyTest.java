@@ -1,14 +1,14 @@
-package com.truebubo.maniflow.Currency;
+package com.truebubo.maniflow.Money;
 
-import com.truebubo.maniflow.Currency.CurrencyTypes.EUR;
-import com.truebubo.maniflow.Currency.CurrencyTypes.USD;
+import com.truebubo.maniflow.Money.CurrencyTypes.EUR;
+import com.truebubo.maniflow.Money.CurrencyTypes.USD;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CurrencyTest {
+class MoneyTest {
     final USD dollarAmount = USD.Dollar;
     final EUR euroAmount = EUR.Euro;
 

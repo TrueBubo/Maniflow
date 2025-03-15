@@ -1,4 +1,4 @@
-package com.truebubo.maniflow.Currency;
+package com.truebubo.maniflow.Money;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
