@@ -4,17 +4,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.*;
+
+import static java.util.Optional.of;
+import static java.util.Optional.empty;
 
 public class PolygonCurrencyConvertor implements CurrencyConverter {
     private String apiKey;
     private final Map<CurrencyDesignation, Map<CurrencyDesignation, CachedExchangeRate>> cache = new HashMap<>();
+
     private record ExchangeResult(
         String T, /* Exchange symbol */
         long v, /* Volume */
@@ -27,7 +30,9 @@ public class PolygonCurrencyConvertor implements CurrencyConverter {
         long n /* Number of transactions */
     ) {}
     private record ExchangeJSON(String ticker, int queryCount, int resultsCount, boolean adjusted, List<ExchangeResult> results, String status, String request_id, int count) {}
-    public PolygonCurrencyConvertor() {
+
+    private PolygonCurrencyConvertor instance;
+    private PolygonCurrencyConvertor() {
         final Properties properties = new Properties();
         final String apiFile = "api.properties";
         try (var resourceStream = new FileInputStream(apiFile)){
@@ -37,14 +42,24 @@ public class PolygonCurrencyConvertor implements CurrencyConverter {
             exception.printStackTrace();
         }
     }
+
+    public PolygonCurrencyConvertor get() {
+        return instance == null ? new PolygonCurrencyConvertor() : instance;
+    }
+
     @Override
-    public Double convert(CurrencyDesignation from, CurrencyDesignation to) {
+    public Optional<Double> convert(CurrencyDesignation from, CurrencyDesignation to) {
         var mapper = new ObjectMapper();
-        try {
-            ExchangeJSON exchangeJSON = mapper.readValue(new File("exchange.json"), ExchangeJSON.class);
-            return exchangeJSON.results.get(0).vw; // The volume weighted average price.
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        try (final var client = HttpClient.newHttpClient()) {
+            final var endpoint = String.format("https://api.polygon.io/v2/aggs/ticker/C:%s%s/prev?apiKey=%s", from, to, apiKey);
+            final var request = HttpRequest.newBuilder()
+                    .uri(URI.create(endpoint))
+                    .build();
+            final var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            ExchangeJSON exchangeJSON = mapper.readValue(response.body(), ExchangeJSON.class);
+            return of(exchangeJSON.results.getFirst().vw); // The volume weighted average price.
+        } catch (IOException | InterruptedException e) {
+            return empty();
         }
     }
 }

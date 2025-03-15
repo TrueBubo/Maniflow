@@ -1,22 +1,29 @@
 package com.truebubo.maniflow.Currency;
 
+import com.truebubo.maniflow.Currency.CurrencyTypes.USD;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
 
-public abstract sealed class Currency<T extends Currency<T>> permits Currency.CZK, Currency.EUR, Currency.GBP, Currency.USD {
+/**
+ * Holds the value of money
+ * @param <T> Currency itself. Used for making operation only between the same currency
+ */
+public abstract sealed class Currency<T extends Currency<T>> permits Currency.CZK, Currency.EUR, Currency.GBP, USD {
     private final @NonNull CurrencyDesignation designation;
     private final @NonNull BigDecimal amount;
 
-    private Currency(@NonNull BigDecimal amount, @NonNull CurrencyDesignation designation) {
+    protected Currency(@NonNull BigDecimal amount, @NonNull CurrencyDesignation designation) {
         this.amount = amount;
         this.designation = designation;
     }
 
-    public final T to(@NonNull CurrencyDesignation toCurrency) {
-        throw new UnsupportedOperationException();
+    public final T to(@NonNull CurrencyDesignation toCurrency) throws ConversionFailedException {
+        var convertor = CurrencyConverterFactory.getConverter();
+        double exchangeRate = convertor.convert(designation, toCurrency).orElseThrow(() -> new ConversionFailedException(String.format("Could not convert from %s to %s. Please check your internet connection", designation, toCurrency)));
+        return multiply(exchangeRate);
     }
 
     public final @NonNull BigDecimal amount() {
@@ -33,15 +40,16 @@ public abstract sealed class Currency<T extends Currency<T>> permits Currency.CZ
         try {
             return currency.getDeclaredConstructor(BigDecimal.class).newInstance(amount);
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException exception){
+            System.err.println("Currency classes must implement constructor taking one BigDecimal value");
             return null; // Should never happen
         }
     }
 
-    public final T add(T other) {
+    public final T add(@NonNull T other) {
         return make(amount.add(other.amount()));
     }
 
-    public final T multiply(BigDecimal multiplier) {
+    public final T multiply(@NonNull BigDecimal multiplier) {
         return make(amount.multiply(multiplier));
     }
 
@@ -53,16 +61,6 @@ public abstract sealed class Currency<T extends Currency<T>> permits Currency.CZ
         return multiply(BigDecimal.valueOf(multiplier));
     }
 
-
-
-    public final static class USD extends Currency<USD> {
-        public final static USD Cent = new USD(BigDecimal.valueOf(0.01));
-        public final static USD Dollar = new USD(BigDecimal.ONE);
-        private USD(@NonNull BigDecimal amount) {
-            super(amount, CurrencyDesignation.USD);
-        }
-
-    }
 
     public final static class EUR extends Currency<EUR> {
         public final static EUR Cent = new EUR(BigDecimal.valueOf(0.01));
