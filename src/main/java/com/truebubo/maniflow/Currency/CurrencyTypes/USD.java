@@ -13,4 +13,9 @@ public final class USD extends Currency<USD> {
         super(amount, CurrencyDesignation.USD);
     }
 
+    /// @param amount How much of a currency do we own
+    @Override
+    public USD make(BigDecimal amount) {
+        return new USD(amount);
+    }
 }

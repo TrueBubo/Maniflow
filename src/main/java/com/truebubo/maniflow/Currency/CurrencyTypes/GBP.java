@@ -12,4 +12,10 @@ public final class GBP extends Currency<GBP> {
     private GBP(@NonNull BigDecimal amount) {
         super(amount, CurrencyDesignation.GBP);
     }
+
+    /// @param amount How much of a currency do we own
+    @Override
+    public GBP make(BigDecimal amount) {
+        return new GBP(amount);
+    }
 }

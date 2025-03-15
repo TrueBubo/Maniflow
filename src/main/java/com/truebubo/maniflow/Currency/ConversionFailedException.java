@@ -1,4 +1,8 @@
 package com.truebubo.maniflow.Currency;
 
-public class ConversionFailedException {
+import java.io.IOException;
+
+public class ConversionFailedException extends IOException {
+    public ConversionFailedException() {super();}
+    public ConversionFailedException(String message) {super(message);}
 }

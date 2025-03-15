@@ -2,7 +2,6 @@ package com.truebubo.maniflow.Currency;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -14,7 +13,7 @@ import java.util.*;
 import static java.util.Optional.of;
 import static java.util.Optional.empty;
 
-public class PolygonCurrencyConvertor implements CurrencyConverter {
+public class PolygonCurrencyConverter implements CurrencyConverter {
     private String apiKey;
     private final Map<CurrencyDesignation, Map<CurrencyDesignation, CachedExchangeRate>> cache = new HashMap<>();
 
@@ -31,8 +30,8 @@ public class PolygonCurrencyConvertor implements CurrencyConverter {
     ) {}
     private record ExchangeJSON(String ticker, int queryCount, int resultsCount, boolean adjusted, List<ExchangeResult> results, String status, String request_id, int count) {}
 
-    private PolygonCurrencyConvertor instance;
-    private PolygonCurrencyConvertor() {
+    private static PolygonCurrencyConverter instance;
+    private PolygonCurrencyConverter() {
         final Properties properties = new Properties();
         final String apiFile = "api.properties";
         try (var resourceStream = new FileInputStream(apiFile)){
@@ -43,8 +42,9 @@ public class PolygonCurrencyConvertor implements CurrencyConverter {
         }
     }
 
-    public PolygonCurrencyConvertor get() {
-        return instance == null ? new PolygonCurrencyConvertor() : instance;
+    public static PolygonCurrencyConverter get() {
+        if (instance == null) { instance = new PolygonCurrencyConverter(); }
+        return instance;
     }
 
     @Override

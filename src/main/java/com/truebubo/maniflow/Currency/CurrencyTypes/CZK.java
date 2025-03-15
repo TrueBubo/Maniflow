@@ -12,4 +12,10 @@ public final class CZK extends Currency<CZK> {
     private CZK(@NonNull BigDecimal amount) {
         super(amount, CurrencyDesignation.CZK);
     }
+
+    /// @param amount How much of a currency do we own
+    @Override
+    public CZK make(BigDecimal amount) {
+        return new CZK(amount);
+    }
 }

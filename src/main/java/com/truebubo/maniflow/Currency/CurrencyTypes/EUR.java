@@ -12,4 +12,10 @@ public final class EUR extends Currency<EUR> {
     private EUR(@NonNull BigDecimal amount) {
         super(amount, CurrencyDesignation.EUR);
     }
+
+    /// @param amount How much of a currency do we own
+    @Override
+    public EUR make(BigDecimal amount) {
+        return new EUR(amount);
+    }
 }
