@@ -1,4 +1,4 @@
-package com.truebubo.maniflow.Expanse;
+package com.truebubo.maniflow.Expense;
 
 import java.math.BigDecimal;
 import java.util.List;

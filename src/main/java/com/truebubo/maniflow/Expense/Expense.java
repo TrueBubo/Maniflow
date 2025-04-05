@@ -1,4 +1,4 @@
-package com.truebubo.maniflow.Expanse;
+package com.truebubo.maniflow.Expense;
 
 import com.truebubo.maniflow.Money.CurrencyDesignation;
 import org.springframework.lang.NonNull;
@@ -6,11 +6,11 @@ import org.springframework.lang.NonNull;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-/// Information about income
+/// Information about expense
 ///
-/// @param value               How much is the new income
-/// @param currencyDesignation What currency the income is in
-/// @param created             Timestamp of when the new income was approved
+/// @param value               How much is the new expense
+/// @param currencyDesignation What currency the expense is in
+/// @param created             Timestamp of when the new expense was approved
 /// @param repeatsAfterDays    This will be automatically added after again after this many days
 public record Expense(@NonNull BigDecimal value, @NonNull CurrencyDesignation currencyDesignation,
                       @NonNull Instant created, int repeatsAfterDays) {

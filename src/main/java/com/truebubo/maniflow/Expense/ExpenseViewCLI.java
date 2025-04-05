@@ -1,4 +1,4 @@
-package com.truebubo.maniflow.Expanse;
+package com.truebubo.maniflow.Expense;
 
 
 import java.util.List;
