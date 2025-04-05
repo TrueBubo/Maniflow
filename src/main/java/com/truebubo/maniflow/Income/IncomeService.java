@@ -12,7 +12,7 @@ public class IncomeService {
     ///
     /// @return All the incomes saved
     public List<Income> getIncomes() {
-        return List.of(new Income(new BigDecimal("50000"), CurrencyDesignation.CZK, Instant.now()));
+        return List.of();
     }
 
     /// Saves the income
