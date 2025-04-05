@@ -1,10 +1,9 @@
-package com.truebubo.maniflow.Income;
+package com.truebubo.maniflow.Expense;
 
 import com.truebubo.maniflow.Money.CurrencyDesignation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -12,34 +11,34 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class IncomeViewCLITest {
-    private IncomeService incomeService;
+class ExpenseViewCLITest {
+    private ExpenseService expenseService;
 
     @BeforeEach
-    public void setUp() {
-        incomeService = Mockito.mock(IncomeService.class);
+    void setUp() {
+        expenseService = Mockito.mock(ExpenseService.class);
     }
 
     @Test
-    void showIncomes() {
+    void showExpenses() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(outputStream);
         PrintStream originalOut = System.out;
         System.setOut(printStream);
 
-        var mockIncomes = List.of(
-                new Income(BigDecimal.valueOf(60000), CurrencyDesignation.CZK, Instant.now()),
-                new Income(BigDecimal.valueOf(5000), CurrencyDesignation.EUR, Instant.now())
+        var mockExpenses = List.of(
+                new Expense(BigDecimal.valueOf(60000), CurrencyDesignation.CZK, Instant.now()),
+                new Expense(BigDecimal.valueOf(5000), CurrencyDesignation.EUR, Instant.now())
         );
-        when(incomeService.getIncomes()).thenReturn(mockIncomes);
-        new IncomeViewCLI(incomeService).showIncomes();
+        when(expenseService.getExpenses()).thenReturn(mockExpenses);
+        new ExpenseViewCLI(expenseService).showExpenses();
 
         System.setOut(originalOut);
         String output = outputStream.toString();
 
         assertEquals("1. 60000CZK\n2. 5000EUR\n", output);
-
     }
 }
