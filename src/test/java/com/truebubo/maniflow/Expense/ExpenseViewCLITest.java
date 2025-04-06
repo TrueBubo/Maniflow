@@ -1,6 +1,7 @@
 package com.truebubo.maniflow.Expense;
 
 import com.truebubo.maniflow.Money.CurrencyDesignation;
+import com.truebubo.maniflow.UtilTests.UtilTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -24,20 +25,16 @@ class ExpenseViewCLITest {
 
     @Test
     void showExpenses() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(outputStream);
-        PrintStream originalOut = System.out;
-        System.setOut(printStream);
 
-        var mockExpenses = List.of(
-                new Expense(BigDecimal.valueOf(60000), CurrencyDesignation.CZK, Instant.now()),
-                new Expense(BigDecimal.valueOf(5000), CurrencyDesignation.EUR, Instant.now())
-        );
-        when(expenseService.getExpenses()).thenReturn(mockExpenses);
-        new ExpenseViewCLI(expenseService).showExpenses();
+        String output = UtilTests.capturePrintedOutput(() -> {
+            var mockExpenses = List.of(
+                    new Expense(BigDecimal.valueOf(60000), CurrencyDesignation.CZK, Instant.now()),
+                    new Expense(BigDecimal.valueOf(5000), CurrencyDesignation.EUR, Instant.now())
+            );
 
-        System.setOut(originalOut);
-        String output = outputStream.toString();
+            when(expenseService.getExpenses()).thenReturn(mockExpenses);
+            new ExpenseViewCLI(expenseService).showExpenses();
+        });
 
         assertEquals("1. 60000CZK\n2. 5000EUR\n", output);
     }

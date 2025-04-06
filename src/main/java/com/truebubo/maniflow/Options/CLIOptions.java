@@ -22,7 +22,10 @@ public final class CLIOptions {
         DEBT("add-debt"),
         INTEREST("yearly-interest"),
         LIST_DEBT("list-debt"),
-        PAY_DEBT("pay-debt"),;
+        PAY_DEBT("pay-debt"),
+        BUY_STOCK("buy-stock"),
+        SELL_STOCK("sell-stock");
+
         public final String longOption;
         SupportedOptions(String longOption) {
             this.longOption = longOption;
@@ -217,5 +220,40 @@ public final class CLIOptions {
                         .argName("Amount paid")
                         .build()
         );
+    }
+
+    private static void addStockOptions() {
+        // List stocks
+        options.addOption(
+                Option.builder()
+                        .desc("List owned stocks")
+                        .option("ls")
+                        .longOpt("list-stock")
+                        .build()
+        );
+
+        // Buy stock
+        options.addOption(
+                Option.builder()
+                        .desc("Buy stock (Accepts format {ticket}-{quantity}")
+                        .option("bs")
+                        .longOpt("buy-stock")
+                        .type(String.class)
+                        .argName("Stock info")
+                        .build()
+        );
+
+        // Sales owned stock
+        options.addOption(
+                Option.builder()
+                        .desc("Buy stock (Accepts format {ticket}-{quantity}")
+                        .option("ss")
+                        .longOpt("sell-stock")
+                        .type(String.class)
+                        .argName("Stock info")
+                        .build()
+        );
+
+
     }
 }
