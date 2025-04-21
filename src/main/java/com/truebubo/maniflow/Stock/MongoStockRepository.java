@@ -7,6 +7,8 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.springframework.lang.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -35,6 +37,11 @@ public class MongoStockRepository implements StockRepository {
                 stockCollection.find(eq("ticket", ticket)
         ).first()
         );
+    }
+
+    @Override
+    public List<Stock> getStocks() {
+        return stockCollection.find().into(new ArrayList<>());
     }
 
 
