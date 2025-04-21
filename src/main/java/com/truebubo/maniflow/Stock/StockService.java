@@ -15,6 +15,7 @@ public class StockService {
     ///
     /// @param stock Information about the stock bought
     public void buyStock(Stock stock) {
+
     }
 
     /// Sells the stocks. The price will be accounted as a one-time income

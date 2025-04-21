@@ -1,0 +1,41 @@
+package com.truebubo.maniflow.Stock;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import org.bson.Document;
+import org.springframework.lang.NonNull;
+
+import java.util.Optional;
+
+import static com.mongodb.client.model.Filters.eq;
+import static java.util.Optional.ofNullable;
+
+/// Repository used for dealing with storage and retrieval of stock using MongoDB
+public class MongoStockRepository implements StockRepository {
+    private MongoCollection<Stock> stockCollection;
+    public MongoStockRepository(@NonNull MongoClient mongoClient) {
+        MongoDatabase database = mongoClient.getDatabase("local");
+        this.stockCollection = database.getCollection("stocks", Stock.class);
+    }
+
+    @Override
+    public @NonNull Stock saveStock(@NonNull Stock stock) {
+        getStock(stock.ticket()).ifPresentOrElse(stockOld -> {
+            stockCollection.deleteOne(eq("ticket", stock.ticket()));
+            stockCollection.insertOne(new Stock(stock.ticket(), stock.volume().add(stockOld.volume())));
+        }, () -> stockCollection.insertOne(stock));
+        return stock;
+    }
+
+    @Override
+    public Optional<Stock> getStock(String ticket) {
+        return ofNullable(
+                stockCollection.find(eq("ticket", ticket)
+        ).first()
+        );
+    }
+
+
+}

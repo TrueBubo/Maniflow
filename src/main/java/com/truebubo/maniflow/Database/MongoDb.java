@@ -4,12 +4,10 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import org.springframework.lang.NonNull;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class MongoDb {
     private static MongoClient instance;
@@ -34,6 +32,5 @@ public class MongoDb {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-
     }
 }
