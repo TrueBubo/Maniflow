@@ -10,6 +10,10 @@ public interface StockRepository {
     /// @return stock saved
     Stock saveStock(Stock stock);
 
+    /// Removes the stock with given ticket
+    /// @param ticket Ticket associated with the stock
+    void deleteStock(String ticket);
+
     /// Finds the stock in storage
     /// @param ticket Ticket associated with the stock
     /// @return Stock if found or empty if not

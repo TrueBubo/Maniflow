@@ -24,11 +24,13 @@ public class MongoStockRepository implements StockRepository {
 
     @Override
     public @NonNull Stock saveStock(@NonNull Stock stock) {
-        getStock(stock.ticket()).ifPresentOrElse(stockOld -> {
-            stockCollection.deleteOne(eq("ticket", stock.ticket()));
-            stockCollection.insertOne(new Stock(stock.ticket(), stock.volume().add(stockOld.volume())));
-        }, () -> stockCollection.insertOne(stock));
+        stockCollection.insertOne(stock);
         return stock;
+    }
+
+    @Override
+    public void deleteStock(String ticket) {
+        stockCollection.deleteOne(eq("ticket", ticket));
     }
 
     @Override
