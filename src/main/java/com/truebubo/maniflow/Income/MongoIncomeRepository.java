@@ -51,7 +51,7 @@ public class MongoIncomeRepository implements IncomeRepository {
                         incomeCollection.deleteOne(eq("created", createdAt));
                         return null;
                     }
-                    incomeCollection.updateOne(eq("created", createdAt), set("amount", newAmount));
+                    incomeCollection.updateOne(eq("created", createdAt), set("value", newAmount));
                     return new Income(newAmount, income.currencyDesignation(), createdAt, income.repeatsAfterDays());
                 }
         );
