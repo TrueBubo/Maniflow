@@ -3,8 +3,6 @@ package com.truebubo.maniflow.Expense;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.truebubo.maniflow.Expense.Expense;
-import com.truebubo.maniflow.Expense.ExpenseRepository;
 import jakarta.annotation.Nullable;
 import org.springframework.lang.NonNull;
 
