@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.combine;
 import static com.mongodb.client.model.Updates.set;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -49,8 +50,11 @@ public class MongoDebtRepository implements DebtRepository {
                 debtCollection.deleteOne(eq("created", createdAt));
                 return null;
             }
-            debtCollection.updateOne(eq("created", createdAt), set("value", newAmount));
-            return new Debt(newAmount, debt.currencyDesignation(), debt.yearlyInterest(), debt.created());
+            Instant now = Instant.now();
+            debtCollection.updateOne(eq("created", createdAt), combine(
+                    set("value", newAmount), set("created", now)
+            ));
+            return new Debt(newAmount, debt.currencyDesignation(), debt.yearlyInterest(), now);
         });
     }
 }
