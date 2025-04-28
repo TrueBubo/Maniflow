@@ -7,6 +7,12 @@ import java.util.List;
 
 /// Handles business logic behind debts
 public class DebtService {
+    DebtRepository debtRepository;
+
+    public DebtService(DebtRepository debtRepository) {
+        this.debtRepository = debtRepository;
+    }
+
     /// Gets the list of all the debts saved by the user
     ///
     /// @return All the debts saved
