@@ -16,18 +16,18 @@ public class IncomeViewCLI {
     }
 
     /// Displays the list of all the incomes for the user
-    void showIncomes() {
+    public void showIncomes() {
         List<Income> incomes = incomeService.getIncomes();
         range(0, incomes.size()).forEach(idx -> {
             final var income = incomes.get(idx);
-            System.out.println(idx + 1 + ". " + income.value() + income.currencyDesignation());
+            System.out.println(idx + ". " + income.value() + income.currencyDesignation());
         });
     }
 
     /// Saves the income
     ///
     /// @param income Information about the income to be added
-    void addIncome(Income income) {
+    public void addIncome(Income income) {
         incomeService.addIncome(income);
     }
 
