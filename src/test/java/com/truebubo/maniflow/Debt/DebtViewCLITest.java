@@ -1,15 +1,11 @@
 package com.truebubo.maniflow.Debt;
 
-import com.truebubo.maniflow.Expense.Expense;
-import com.truebubo.maniflow.Expense.ExpenseViewCLI;
 import com.truebubo.maniflow.Money.CurrencyDesignation;
 import com.truebubo.maniflow.UtilTests.UtilTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;

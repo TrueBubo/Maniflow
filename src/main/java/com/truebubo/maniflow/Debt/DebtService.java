@@ -1,12 +1,10 @@
 package com.truebubo.maniflow.Debt;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.List;
 
 /// Handles business logic behind debts
 public class DebtService {
-    final static long secondsInYear = 31557600;
     DebtRepository debtRepository;
 
     public DebtService(DebtRepository debtRepository) {
@@ -33,12 +31,8 @@ public class DebtService {
     /// @param amount Will deduct this much from the debt
     public void payDebt(int id, BigDecimal amount) {
         var oldDebt = debtRepository.getDebt(id);
-        oldDebt.ifPresentOrElse(debt -> {
-                    final var yearsFromDebt = (double) (Instant.now().getEpochSecond() - debt.created().getEpochSecond()) / secondsInYear;
-                    final var ownedCurrent = debt.value().multiply(
-                            BigDecimal.valueOf(1 + yearsFromDebt));
-                    debtRepository.changeDebt(id, ownedCurrent.subtract(amount));
-                },
+        oldDebt.ifPresentOrElse(
+                debt -> debtRepository.changeDebt(id, debt.getValueWithInterest().subtract(amount)),
                 () -> System.out.println("Debt with given id not found")
         );
     }
