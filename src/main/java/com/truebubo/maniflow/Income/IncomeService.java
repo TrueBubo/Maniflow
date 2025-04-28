@@ -1,6 +1,7 @@
 package com.truebubo.maniflow.Income;
 
 import com.truebubo.maniflow.Money.CurrencyDesignation;
+import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -18,7 +19,7 @@ public class IncomeService {
     /// Saves the income
     ///
     /// @param income Information about the income to be added
-    public void addIncome(Income income) {
+    public void addIncome(@NonNull Income income) {
 
     }
 
@@ -26,7 +27,7 @@ public class IncomeService {
     ///
     /// @param id        ID identifying the income. It is the left value displayed when calling showIncomes
     /// @param newAmount Will update the value to this value. If set to zero. The value will be removed
-    public void changeIncome(long id, BigDecimal newAmount) {
+    public void changeIncome(int id, @NonNull BigDecimal newAmount) {
 
     }
 }

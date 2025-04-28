@@ -3,8 +3,6 @@ package com.truebubo.maniflow.Stock;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import org.bson.Document;
 import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
@@ -16,7 +14,8 @@ import static java.util.Optional.ofNullable;
 
 /// Repository used for dealing with storage and retrieval of stock using MongoDB
 public class MongoStockRepository implements StockRepository {
-    private MongoCollection<Stock> stockCollection;
+    private final MongoCollection<Stock> stockCollection;
+
     public MongoStockRepository(@NonNull MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase("local");
         this.stockCollection = database.getCollection("stocks", Stock.class);
@@ -37,7 +36,7 @@ public class MongoStockRepository implements StockRepository {
     public Optional<Stock> getStock(String ticket) {
         return ofNullable(
                 stockCollection.find(eq("ticket", ticket)
-        ).first()
+                ).first()
         );
     }
 
