@@ -35,7 +35,7 @@ public class MongoIncomeRepository implements IncomeRepository {
     @Override
     public @NonNull Optional<Income> getIncome(int id) {
         List<Income> incomes = getIncomes();
-        return (incomes.size() <= id) ? empty() : of(incomes.get(id));
+        return (id - 1 < 0 || incomes.size() <= id - 1) ? empty() : of(incomes.get(id - 1));
     }
 
     @Override

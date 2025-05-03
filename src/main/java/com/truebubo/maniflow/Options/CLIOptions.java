@@ -31,7 +31,8 @@ public final class CLIOptions {
         ID(Option.builder()
                 .desc("Set the entry effected")
                 .longOpt("id")
-                .type(Long.class)
+                .type(Integer.class)
+                .hasArg()
                 .argName("ID of the entry to be effected")
                 .build()),
 
@@ -39,13 +40,15 @@ public final class CLIOptions {
                 .desc("Set the currency used")
                 .option("c")
                 .longOpt("currency")
+                .type(String.class)
+                .hasArg()
                 .argName("Currency code")
                 .build()),
 
         INCOME(Option.builder()
-                .desc("Add income")
-                .option("i")
+                .desc("Add income (Must be combined with a currency)")
                 .longOpt("add-income")
+                .hasArg()
                 .type(BigDecimal.class)
                 .argName("Income")
                 .build()),
@@ -55,51 +58,50 @@ public final class CLIOptions {
                 .option("r")
                 .longOpt("repeat")
                 .type(Integer.class)
+                .hasArg()
                 .argName("Days")
                 .build()
         ),
 
         LIST_INCOME(Option.builder()
                 .desc("List incomes")
-                .option("li")
                 .longOpt("list-incomes")
                 .build()),
 
         CHANGE_INCOME(Option.builder()
-                .desc("Change income")
-                .option("ci")
+                .desc("Change income (Must be combined with an id)")
                 .longOpt("change-income")
                 .type(BigDecimal.class)
+                .hasArg()
                 .argName("New income")
                 .build()),
 
         EXPENSE(Option.builder()
-                .option("e")
                 .longOpt("add-expense")
                 .type(BigDecimal.class)
+                .hasArg()
                 .argName("Expense")
                 .desc("Add expense")
                 .build()),
 
         LIST_EXPENSE(Option.builder()
                 .desc("List expenses")
-                .option("le")
                 .longOpt("list-expenses")
                 .build()),
 
         CHANGE_EXPENSE(Option.builder()
                 .desc("Change expense")
-                .option("ce")
                 .longOpt("change-expense")
                 .type(BigDecimal.class)
+                .hasArg()
                 .argName("New expense")
                 .build()),
 
         DEBT(Option.builder()
-                .desc("Add debt")
-                .option("db")
+                .desc("Add debt (Must be combined with a currency and yearly interest)")
                 .longOpt("add-debt")
                 .type(BigDecimal.class)
+                .hasArg()
                 .argName("New debt")
                 .build()),
 
@@ -108,6 +110,7 @@ public final class CLIOptions {
                 .option("yi")
                 .longOpt("yearly-interest")
                 .type(BigDecimal.class)
+                .hasArg()
                 .argName("Interest rate")
                 .build()),
 
@@ -122,22 +125,28 @@ public final class CLIOptions {
                 .option("pd")
                 .longOpt("pay-debts")
                 .type(BigDecimal.class)
+                .hasArg()
                 .argName("Amount paid")
                 .build()),
 
+        LIST_STOCKS(Option.builder()
+                .desc("List owned stocks")
+                .longOpt("list-stocks")
+                .build()),
+
         BUY_STOCK(Option.builder()
-                .desc("List owned stocks (Accepts format {ticket}-{quantity})")
-                .option("ls")
-                .longOpt("list-stock")
+                .desc("Buy stocks (Accepts format {ticket}-{quantity})")
+                .longOpt("buy-stock")
                 .type(String.class)
+                .hasArg()
                 .argName("Stock")
                 .build()),
 
         SELL_STOCK(Option.builder()
                 .desc("Buy stock (Accepts format {ticket}-{quantity}")
-                .option("ss")
                 .longOpt("sell-stock")
                 .type(String.class)
+                .hasArg()
                 .argName("Stock info")
                 .build());
 

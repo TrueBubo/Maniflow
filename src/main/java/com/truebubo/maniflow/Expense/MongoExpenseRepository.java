@@ -35,7 +35,7 @@ public class MongoExpenseRepository implements ExpenseRepository {
     @Override
     public @NonNull Optional<Expense> getExpense(int id) {
         List<Expense> expenses = getExpenses();
-        return (expenses.size() <= id) ? empty() : of(expenses.get(id));
+        return (id - 1 < 0 || expenses.size() <= id - 1) ? empty() : of(expenses.get(id - 1));
     }
 
     @Override

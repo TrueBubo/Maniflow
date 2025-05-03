@@ -2,6 +2,7 @@ package com.truebubo.maniflow.Expense;
 
 import com.truebubo.maniflow.Money.CurrencyDesignation;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -14,8 +15,8 @@ import java.util.Optional;
 /// @param created             Timestamp of when the new expense was approved
 /// @param repeatsAfterDays    This will be automatically added after again after this many days, if does not repeat the value should be -1
 public record Expense(@NonNull BigDecimal value, @NonNull CurrencyDesignation currencyDesignation,
-                      @NonNull Instant created, Optional<Integer> repeatsAfterDays) {
+                      @NonNull Instant created, @Nullable Integer repeatsAfterDays) {
     public Expense(@NonNull BigDecimal value, @NonNull CurrencyDesignation currencyDesignation, @NonNull Instant created) {
-        this(value, currencyDesignation, created, Optional.empty());
+        this(value, currencyDesignation, created, null);
     }
 }

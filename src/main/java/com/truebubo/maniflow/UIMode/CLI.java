@@ -69,7 +69,10 @@ public final class CLI implements UIMode {
             }
 
             if (commandLine.hasOption(CLIOptions.SupportedOptions.CURRENCY.option)) {
-                currencyDesignation = Optional.of(commandLine.getParsedOptionValue(CLIOptions.SupportedOptions.CURRENCY.option));
+                currencyDesignation = Optional.of(
+                        CurrencyDesignation.fromString(commandLine.getParsedOptionValue(CLIOptions.SupportedOptions.CURRENCY.option)
+                        )
+                );
             }
 
             if (commandLine.hasOption(CLIOptions.SupportedOptions.REPEATS_AFTER.option)) {
@@ -86,7 +89,7 @@ public final class CLI implements UIMode {
                 new IncomeViewCLI(this.incomeService).addIncome(
                         new Income(value, currencyDesignation.orElseThrow(() ->
                                 new RuntimeException("Currency designation is required for adding incomes")),
-                                Instant.now(), repeatsAfterDays
+                                Instant.now(), repeatsAfterDays.orElse(null)
                         ));
                 return;
             }
@@ -110,7 +113,7 @@ public final class CLI implements UIMode {
                 new ExpenseViewCLI(this.expenseService).addExpense(
                         new Expense(value, currencyDesignation.orElseThrow(() ->
                                 new RuntimeException("Currency designation is required for adding incomes")),
-                                Instant.now(), repeatsAfterDays)
+                                Instant.now(), repeatsAfterDays.orElse(null))
                 );
                 return;
             }
@@ -155,6 +158,11 @@ public final class CLI implements UIMode {
                 return;
             }
 
+            if (commandLine.hasOption(CLIOptions.SupportedOptions.LIST_STOCKS.option)) {
+                new StockViewCLI(stockService).showOwnedStocks();
+                return;
+            }
+
             if (commandLine.hasOption(CLIOptions.SupportedOptions.BUY_STOCK.option)) {
                 String input = commandLine.getOptionValue(CLIOptions.SupportedOptions.BUY_STOCK.option);
                 String[] result = input.split("-");
@@ -168,7 +176,7 @@ public final class CLI implements UIMode {
                 } catch (NumberFormatException e) {
                     System.err.println("Unable to parse quantity: " + result[1]);
                 } catch (StockNotFoundException e) {
-                    throw new RuntimeException(e);
+                    System.err.println("Unable to find stock: " + ticket);
                 }
 
                 return;
@@ -186,14 +194,17 @@ public final class CLI implements UIMode {
                     new StockViewCLI(this.stockService).sellStock(new Stock(ticket, quantity));
                 } catch (NumberFormatException e) {
                     System.err.println("Unable to parse quantity: " + result[1]);
-                } catch (StockNotFoundException | TooFewStocksOwnedException e) {
-                    throw new RuntimeException(e);
+                } catch (StockNotFoundException _) {
+                    System.err.println("Unable to find stock: " + ticket);
+                } catch (TooFewStocksOwnedException e) {
+                    System.err.println(e.getMessage());
                 }
+                return;
             }
 
 
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            System.out.println(e);;
         }
     }
 }

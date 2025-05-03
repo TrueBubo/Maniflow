@@ -40,7 +40,8 @@ public class StatsService {
         Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.getIncomes().stream().collect(
                 groupingBy(Income::currencyDesignation,
                         reducing(BigDecimal.ZERO, (Income income) -> income.value().multiply(BigDecimal.valueOf(
-                                        income.repeatsAfterDays().map(repeatsAfter -> income.created().until(now, ChronoUnit.DAYS) / repeatsAfter + 1).orElse(1L)
+                                        income.repeatsAfterDays() == null ? 1
+                                                : income.created().until(now, ChronoUnit.DAYS) / income.repeatsAfterDays() + 1
                                 )), BigDecimal::add
                         )
                 )
@@ -50,7 +51,9 @@ public class StatsService {
                 ownsMoneyPerCurrency.put(expense.currencyDesignation(),
                         ownsMoneyPerCurrency.getOrDefault(expense.currencyDesignation(), BigDecimal.ZERO)
                                 .subtract(expense.value().multiply(BigDecimal.valueOf(
-                                        expense.repeatsAfterDays().map(repeatsAfter -> expense.created().until(now, ChronoUnit.DAYS) / repeatsAfter + 1).orElse(1L))
+                                        expense.repeatsAfterDays() == null ? 1
+                                                : expense.created().until(now, ChronoUnit.DAYS) / expense.repeatsAfterDays() + 1
+                                        )
                                 ))
                 )
         );
