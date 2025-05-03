@@ -44,6 +44,8 @@ public class PolygonCurrencyConverter implements CurrencyConverter {
         }
     }
 
+    /// Lazily gets the converter
+    /// @return Currency converter
     public static PolygonCurrencyConverter get() {
         if (instance == null) { instance = new PolygonCurrencyConverter(); }
         return instance;

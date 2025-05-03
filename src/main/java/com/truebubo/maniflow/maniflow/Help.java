@@ -7,10 +7,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+/// Help menu for app
 public final class Help {
     private Help() {
     }
 
+    /// Shows help menu for the application
+    /// @param options Available options to the user
     public static void showHelpCLI(Options options) {
         try (var resourceStream = Help.class.getResourceAsStream("/app.properties")) {
             final Properties properties = new Properties();
@@ -29,6 +32,7 @@ public final class Help {
         }
     }
 
+    /// Shows version of the application
     public static void showVersionCLI() {
         try (var resourceStream = Help.class.getResourceAsStream("/app.properties")) {
             final Properties properties = new Properties();

@@ -10,6 +10,8 @@ import static java.util.stream.IntStream.range;
 public class ExpenseViewCLI {
     private final ExpenseService expenseService;
 
+    /// CLI front-end for expenses
+    /// @param expenseService service for accessing expense back-end
     public ExpenseViewCLI(ExpenseService expenseService) {
         this.expenseService = expenseService;
     }

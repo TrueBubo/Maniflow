@@ -4,6 +4,8 @@ package com.truebubo.maniflow.Money;
 public class CurrencyConverterFactory {
     private static CurrencyConverter converter;
 
+    /// Lazily returns a currency converter
+    /// @return Reused or new converter
     public static CurrencyConverter getConverter() {
         if (converter == null) {
             converter = PolygonCurrencyConverter.get();
@@ -11,6 +13,8 @@ public class CurrencyConverterFactory {
         return converter;
     }
 
+    /// Sets a custom converter from outside
+    /// @param converter Custom converter
     public static void setConvertor(CurrencyConverter converter) {
         CurrencyConverterFactory.converter = converter;
     }

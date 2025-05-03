@@ -9,6 +9,8 @@ import static java.util.stream.IntStream.range;
 public class DebtViewCLI {
     private final DebtService debtService;
 
+    /// CLI front-end for debts
+    /// @param debtService service for accessing debt back-end
     public DebtViewCLI(DebtService debtService) {
         this.debtService = debtService;
     }

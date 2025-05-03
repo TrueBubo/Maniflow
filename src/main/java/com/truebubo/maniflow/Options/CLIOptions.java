@@ -9,25 +9,30 @@ import java.util.Optional;
 
 /// Used for handling of CLI arguments given to the application
 public final class CLIOptions {
+    /// Supported options with the associated option property for type-safe querying
     public enum SupportedOptions {
+        /// Show help
         HELP(Option.builder()
                 .desc("Show help")
                 .option("h")
                 .longOpt("help")
                 .build()),
 
+        /// Show version
         VERSION(Option.builder()
                 .desc("Show version")
                 .option("v")
                 .longOpt("version")
                 .build()),
 
+        /// Show statistics
         STATS(Option.builder()
                 .desc("Show statistics")
                 .option("s")
                 .longOpt("stats")
                 .build()),
 
+        /// Set the entry effected
         ID(Option.builder()
                 .desc("Set the entry effected")
                 .longOpt("id")
@@ -36,6 +41,7 @@ public final class CLIOptions {
                 .argName("ID of the entry to be effected")
                 .build()),
 
+        /// Set the currency used
         CURRENCY(Option.builder()
                 .desc("Set the currency used")
                 .option("c")
@@ -45,6 +51,7 @@ public final class CLIOptions {
                 .argName("Currency code")
                 .build()),
 
+        /// Add income
         INCOME(Option.builder()
                 .desc("Add income (Must be combined with a currency)")
                 .longOpt("add-income")
@@ -53,6 +60,7 @@ public final class CLIOptions {
                 .argName("Income")
                 .build()),
 
+        /// Repeats after this many days
         REPEATS_AFTER(Option.builder()
                 .desc("Repeats after this many days")
                 .option("r")
@@ -63,11 +71,13 @@ public final class CLIOptions {
                 .build()
         ),
 
+        /// List incomes
         LIST_INCOME(Option.builder()
                 .desc("List incomes")
                 .longOpt("list-incomes")
                 .build()),
 
+        /// Change income
         CHANGE_INCOME(Option.builder()
                 .desc("Change income (Must be combined with an id)")
                 .longOpt("change-income")
@@ -76,6 +86,7 @@ public final class CLIOptions {
                 .argName("New income")
                 .build()),
 
+        /// Add expense
         EXPENSE(Option.builder()
                 .longOpt("add-expense")
                 .type(BigDecimal.class)
@@ -84,11 +95,13 @@ public final class CLIOptions {
                 .desc("Add expense")
                 .build()),
 
+        /// List expenses
         LIST_EXPENSE(Option.builder()
                 .desc("List expenses")
                 .longOpt("list-expenses")
                 .build()),
 
+        /// Change expense
         CHANGE_EXPENSE(Option.builder()
                 .desc("Change expense")
                 .longOpt("change-expense")
@@ -97,6 +110,7 @@ public final class CLIOptions {
                 .argName("New expense")
                 .build()),
 
+        /// Add debt
         DEBT(Option.builder()
                 .desc("Add debt (Must be combined with a currency and yearly interest)")
                 .longOpt("add-debt")
@@ -105,6 +119,7 @@ public final class CLIOptions {
                 .argName("New debt")
                 .build()),
 
+        /// Yearly interest
         INTEREST(Option.builder()
                 .desc("Yearly interest")
                 .option("yi")
@@ -114,12 +129,14 @@ public final class CLIOptions {
                 .argName("Interest rate")
                 .build()),
 
+        /// List debts
         LIST_DEBT(Option.builder()
                 .desc("List debts")
                 .option("ld")
                 .longOpt("list-debts")
                 .build()),
 
+        /// Pay debt
         PAY_DEBT(Option.builder()
                 .desc("Pay debt")
                 .option("pd")
@@ -129,11 +146,13 @@ public final class CLIOptions {
                 .argName("Amount paid")
                 .build()),
 
+        /// List stocks
         LIST_STOCKS(Option.builder()
                 .desc("List owned stocks")
                 .longOpt("list-stocks")
                 .build()),
 
+        /// Buy stocks
         BUY_STOCK(Option.builder()
                 .desc("Buy stocks (Accepts format {ticket}-{quantity})")
                 .longOpt("buy-stock")
@@ -142,6 +161,7 @@ public final class CLIOptions {
                 .argName("Stock")
                 .build()),
 
+        /// Sell stock
         SELL_STOCK(Option.builder()
                 .desc("Buy stock (Accepts format {ticket}-{quantity}")
                 .longOpt("sell-stock")
@@ -150,6 +170,7 @@ public final class CLIOptions {
                 .argName("Stock info")
                 .build());
 
+        /// Option for type-safe querying
         public final Option option;
 
         SupportedOptions(Option option) {
@@ -163,6 +184,7 @@ public final class CLIOptions {
     }
 
     /// Gets options
+    /// @return Lazily loaded option
     public static Options get() {
         if (options == null) {
             options = new Options();

@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Optional;
 
+/// Implements the CLI front-end for Maniflow system
 public final class CLI implements UIMode {
     private final IncomeService incomeService;
     private final ExpenseService expenseService;
@@ -23,6 +24,7 @@ public final class CLI implements UIMode {
     private final StockService stockService;
     private final StatsService statsService;
 
+    /// Initializes services
     public CLI() {
         IncomeRepository incomeRepository = new MongoIncomeRepository(MongoDb.getInstance());
         ExpenseRepository expenseRepository = new MongoExpenseRepository(MongoDb.getInstance());

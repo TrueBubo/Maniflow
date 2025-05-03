@@ -11,6 +11,8 @@ import static java.util.stream.IntStream.range;
 public class IncomeViewCLI {
     private final IncomeService incomeService;
 
+    /// CLI front-end for incomes
+    /// @param incomeService service for accessing income back-end
     public IncomeViewCLI(IncomeService incomeService) {
         this.incomeService = incomeService;
     }

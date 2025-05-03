@@ -9,6 +9,8 @@ import java.util.List;
 public class IncomeService {
     private final IncomeRepository incomeRepository;
 
+    /// Service for incomes
+    /// @param incomeRepository Repository for data about incomes
     public IncomeService(@NonNull IncomeRepository incomeRepository) {
         this.incomeRepository = incomeRepository;
     }

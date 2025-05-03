@@ -1,6 +1,8 @@
 package com.truebubo.maniflow.UIMode;
 
+/// GUI front-end for maniflow system
 public final class GUI implements UIMode {
+    /// Initializes services and GUI
     public GUI() {}
 
     public void start(String[] args) {

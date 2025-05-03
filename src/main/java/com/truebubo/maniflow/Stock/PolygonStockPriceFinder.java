@@ -17,6 +17,7 @@ import java.util.Properties;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
+/// Finds stock price with polygon api
 public class PolygonStockPriceFinder implements StockPriceFinder {
     private String apiKey;
     private static PolygonStockPriceFinder instance;
@@ -47,6 +48,8 @@ public class PolygonStockPriceFinder implements StockPriceFinder {
         }
     }
 
+    /// Lazily gets stock price finder
+    /// @return stock finder
     public static PolygonStockPriceFinder get() {
         if (instance == null) { instance = new PolygonStockPriceFinder(); }
         return instance;

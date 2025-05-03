@@ -1,6 +1,7 @@
 package com.truebubo.maniflow.Stock;
 
 import com.truebubo.maniflow.Debt.Debt;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 
@@ -10,7 +11,9 @@ import static java.util.stream.IntStream.range;
 public class StockViewCLI {
     private final StockService stockService;
 
-    public StockViewCLI(StockService stockService) {
+    /// Created CLI frontend for stocks
+    /// @param stockService Service for stocks
+    public StockViewCLI(@NonNull StockService stockService) {
         this.stockService = stockService;
     }
 
@@ -25,13 +28,16 @@ public class StockViewCLI {
 
     /// Buys the stock with given info
     /// @param stock Stock bought
-    public void buyStock(Stock stock) throws StockNotFoundException {
+    /// @throws StockNotFoundException If stock was not found by API
+    public void buyStock(@NonNull Stock stock) throws StockNotFoundException {
         stockService.buyStock(stock);
     }
 
     /// Sells the stock with given info
     /// @param stock Stock sold
-    public void sellStock(Stock stock) throws StockNotFoundException, TooFewStocksOwnedException {
+    /// @throws StockNotFoundException If stock was not found by API
+    /// @throws TooFewStocksOwnedException If wanted to sell more than owned
+    public void sellStock(@NonNull Stock stock) throws StockNotFoundException, TooFewStocksOwnedException {
         stockService.sellStock(stock);
     }
 }

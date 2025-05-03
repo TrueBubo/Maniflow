@@ -18,9 +18,12 @@ import static com.mongodb.client.model.Updates.set;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
+/// Repository used for dealing with storage and retrieval of debts using MongoDB
 public class MongoDebtRepository implements DebtRepository {
     private final MongoCollection<Debt> debtCollection;
 
+    /// Creates mongo repository
+    /// @param mongoClient Mongo client to be used
     public MongoDebtRepository(@NonNull MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase("local");
         this.debtCollection = database.getCollection("debt", Debt.class);

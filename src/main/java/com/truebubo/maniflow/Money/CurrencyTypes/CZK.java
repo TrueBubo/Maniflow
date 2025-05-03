@@ -5,9 +5,12 @@ import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 
+/// Czech crown
 public final class CZK extends Money<CZK> {
-    public final static com.truebubo.maniflow.Money.CurrencyTypes.CZK Haler = new com.truebubo.maniflow.Money.CurrencyTypes.CZK(BigDecimal.valueOf(0.01));
-    public final static com.truebubo.maniflow.Money.CurrencyTypes.CZK Crown = new com.truebubo.maniflow.Money.CurrencyTypes.CZK(BigDecimal.ONE);
+    /// Small unit of currency
+    public final static CZK Haler = new CZK(BigDecimal.valueOf(0.01));
+    /// Big unit of currency
+    public final static CZK Crown = new CZK(BigDecimal.ONE);
 
     private CZK(@NonNull BigDecimal amount) {
         super(amount, CurrencyDesignation.CZK);

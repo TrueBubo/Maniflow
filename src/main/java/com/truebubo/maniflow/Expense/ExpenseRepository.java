@@ -16,6 +16,8 @@ public interface ExpenseRepository {
     @Nullable Expense saveExpense(@NonNull Expense expense);
 
     /// Finds the expense with given id
+    /// @param id ID as shown by showExpenses
+    /// @return Expense if found else empty
     Optional<Expense> getExpense(int id);
 
     /// Finds all the expenses saved
@@ -27,5 +29,6 @@ public interface ExpenseRepository {
     ///
     /// @param id        ID identifying the expense. It is the left value displayed when calling showExpenses
     /// @param newAmount Will update the value to this value. If set to zero. The expanse will be removed
+    /// @return Changed expense or empty if did not change
     Optional<Expense> changeExpense(int id, @NonNull BigDecimal newAmount);
 }

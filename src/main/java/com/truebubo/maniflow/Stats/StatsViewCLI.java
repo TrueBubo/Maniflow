@@ -10,6 +10,8 @@ import java.util.Map;
 /// CLI Frontend for expense portion of the application
 public class StatsViewCLI {
     private final StatsService statsService;
+    /// ClI front-end for stats
+    /// @param statsService Stats back-end
     public StatsViewCLI(@NonNull StatsService statsService) {
         this.statsService = statsService;
     }

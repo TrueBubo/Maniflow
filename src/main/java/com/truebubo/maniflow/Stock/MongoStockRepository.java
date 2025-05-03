@@ -16,6 +16,8 @@ import static java.util.Optional.ofNullable;
 public class MongoStockRepository implements StockRepository {
     private final MongoCollection<Stock> stockCollection;
 
+    /// Creates mongo repository
+    /// @param mongoClient Mongo client to be used
     public MongoStockRepository(@NonNull MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase("local");
         this.stockCollection = database.getCollection("stocks", Stock.class);

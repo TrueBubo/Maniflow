@@ -7,6 +7,9 @@ import java.util.List;
 public class ExpenseService {
     private final ExpenseRepository expenseRepository;
 
+    /// Service for expenses
+    ///
+    /// @param expenseRepository Repository for data about expenses
     public ExpenseService(ExpenseRepository expenseRepository) {
         this.expenseRepository = expenseRepository;
     }

@@ -24,6 +24,11 @@ public class StatsService {
     private final StockService stockService;
     private final DebtService debtService;
 
+    /// Initializes stats service with other services
+    /// @param incomeService Income service
+    /// @param expenseService Expense service
+    /// @param stockService Stock service
+    /// @param debtService Debt service
     public StatsService(IncomeService incomeService,
                         ExpenseService expenseService,
                         StockService stockService,
@@ -35,6 +40,7 @@ public class StatsService {
     }
 
     /// Returns financial stats for the user
+    /// @return Stats for the user
     public Stats getMoneyStats() {
         final Instant now = Instant.now();
         Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.getIncomes().stream().collect(

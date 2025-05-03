@@ -15,6 +15,9 @@ public interface IncomeRepository {
     Income saveIncome(@NonNull Income income);
 
     /// Finds the income with given id
+    ///
+    /// @param id as shown in list
+    /// @return Income if found else empty
     Optional<Income> getIncome(int id);
 
     /// Finds all the incomes saved
@@ -26,5 +29,6 @@ public interface IncomeRepository {
     ///
     /// @param id        ID identifying the income. It is the left value displayed when calling showIncomes
     /// @param newAmount Will update the value to this value. If set to zero. The value will be removed
+    /// @return new income if changed, else empty
     Optional<Income> changeIncome(int id, @NonNull BigDecimal newAmount);
 }

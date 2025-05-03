@@ -5,8 +5,11 @@ import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 
+/// Euro
 public final class EUR extends Money<EUR> {
+    /// Small unit of currency
     public final static com.truebubo.maniflow.Money.CurrencyTypes.EUR Cent = new com.truebubo.maniflow.Money.CurrencyTypes.EUR(BigDecimal.valueOf(0.01));
+    /// Large unit of currency
     public final static com.truebubo.maniflow.Money.CurrencyTypes.EUR Euro = new com.truebubo.maniflow.Money.CurrencyTypes.EUR(BigDecimal.ONE);
 
     private EUR(@NonNull BigDecimal amount) {

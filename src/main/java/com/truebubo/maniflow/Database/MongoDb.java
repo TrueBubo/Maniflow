@@ -9,9 +9,12 @@ import org.springframework.lang.NonNull;
 import java.io.IOException;
 import java.util.Properties;
 
+/// Accessors for MongoDB
 public class MongoDb {
     private static MongoClient instance;
 
+    /// Lazily gets instance
+    /// @return Reused or new mongo client
     public static MongoClient getInstance() {
         if (instance != null) return instance;
 

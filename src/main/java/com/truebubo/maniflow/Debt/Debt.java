@@ -15,6 +15,8 @@ import java.time.Instant;
 public record Debt(@NonNull BigDecimal value, @NonNull CurrencyDesignation currencyDesignation,
                    @NonNull BigDecimal yearlyInterest, @NonNull Instant created) {
     final static long secondsInYear = 31557600;
+    /// How much is the debt now including the interest that accumulated since last updates
+    /// @return Value with interest
     public BigDecimal getValueWithInterest() {
         final var yearsFromDebt = (double) (Instant.now().getEpochSecond() - this.created().getEpochSecond()) / secondsInYear;
         return this.value().multiply(
