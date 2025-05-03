@@ -1,28 +1,46 @@
 package com.truebubo.maniflow.Stats;
 
-import com.truebubo.maniflow.Debt.DebtService;
-import com.truebubo.maniflow.Expense.Expense;
-import com.truebubo.maniflow.Expense.ExpenseService;
-import com.truebubo.maniflow.Income.IncomeService;
-import com.truebubo.maniflow.Stock.StockService;
+import com.truebubo.maniflow.Money.CurrencyDesignation;
+import org.springframework.lang.NonNull;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Map;
+
+/// CLI Frontend for expense portion of the application
 public class StatsViewCLI {
-    private final IncomeService incomeService;
-    private final ExpenseService expenseService;
-    private final StockService stockService;
-    private final DebtService debtService;
-
-    public StatsViewCLI(IncomeService incomeService,
-                        ExpenseService expenseService,
-                        StockService stockService,
-                        DebtService debtService) {
-        this.incomeService = incomeService;
-        this.expenseService = expenseService;
-        this.stockService = stockService;
-        this.debtService = debtService;
+    private final StatsService statsService;
+    public StatsViewCLI(@NonNull StatsService statsService) {
+        this.statsService = statsService;
     }
 
-    public void showMoneyStats() {
+    private static void showMoneyOwned(Map<CurrencyDesignation, BigDecimal> moneyOwned) {
+        System.out.println("Money owned:");
+        moneyOwned.forEach((currencyDesignation, value) ->
+                System.out.println("\t" + currencyDesignation + ": " + value));
+    }
+
+    private static void showStocks(Map<String, BigDecimal> stocks) {
+        System.out.println("Stocks:");
+        stocks.forEach((ticket, amount) ->
+                System.out.println("\t" + ticket + ": " + amount));
+    }
+
+    private static void showDebts(Map<CurrencyDesignation, BigDecimal> debts) {
+        System.out.println("Debts:");
+        debts.forEach((currencyDesignation, value) ->
+                System.out.println("\t" + currencyDesignation + ": " + value));
+    }
+
+    /// Display summary of our finances
+    public void showStats() {
+        Stats stats = statsService.getMoneyStats();
+
+        showMoneyOwned(stats.ownsMoney());
+        showStocks(stats.ownsStocks());
+        showDebts(stats.owesMoney());
+
+
 
     }
 }

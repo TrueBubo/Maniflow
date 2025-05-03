@@ -20,7 +20,7 @@ public class IncomeViewCLI {
         List<Income> incomes = incomeService.getIncomes();
         range(0, incomes.size()).forEach(idx -> {
             final var income = incomes.get(idx);
-            System.out.println(idx + ". " + income.value() + income.currencyDesignation());
+            System.out.println(idx + 1 + ". " + income.value() + income.currencyDesignation());
         });
     }
 

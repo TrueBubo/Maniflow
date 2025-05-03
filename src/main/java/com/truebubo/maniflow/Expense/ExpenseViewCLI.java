@@ -19,7 +19,7 @@ public class ExpenseViewCLI {
         List<Expense> expenses = expenseService.getExpenses();
         range(0, expenses.size()).forEach(idx -> {
             final var expense = expenses.get(idx);
-            System.out.println(idx + ". " + expense.value() + expense.currencyDesignation());
+            System.out.println(idx + 1 + ". " + expense.value() + expense.currencyDesignation());
         });
     }
 
