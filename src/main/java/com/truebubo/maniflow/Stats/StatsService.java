@@ -37,7 +37,7 @@ public class StatsService {
     /// Returns financial stats for the user
     public Stats getMoneyStats() {
         final Instant now = Instant.now();
-        Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.getIncomes().parallelStream().collect(
+        Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.getIncomes().stream().collect(
                 groupingBy(Income::currencyDesignation,
                         reducing(BigDecimal.ZERO, (Income income) -> income.value().multiply(BigDecimal.valueOf(
                                 income.repeatsAfterDays() < 1 ? 1 // Does not repeat. Designated value is -1, but this handles everything invalid
@@ -50,11 +50,11 @@ public class StatsService {
                                 .subtract(expense.value()
                                 )));
 
-        Map<String, BigDecimal> ownsStocksPerTicket = stockService.getStockHoldings().parallelStream().collect(
+        Map<String, BigDecimal> ownsStocksPerTicket = stockService.getStockHoldings().stream().collect(
                 groupingBy(Stock::ticket, reducing(BigDecimal.ZERO, Stock::volume, BigDecimal::add)
                 ));
 
-        Map<CurrencyDesignation, BigDecimal> owesMoneyPerCurrency = debtService.getDebts().parallelStream().collect(
+        Map<CurrencyDesignation, BigDecimal> owesMoneyPerCurrency = debtService.getDebts().stream().collect(
                 groupingBy(Debt::currencyDesignation, reducing(BigDecimal.ZERO, Debt::value, BigDecimal::add))
         );
 
