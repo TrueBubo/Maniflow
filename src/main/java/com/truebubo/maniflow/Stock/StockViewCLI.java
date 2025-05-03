@@ -22,4 +22,16 @@ public class StockViewCLI {
             System.out.println(stock.ticket() + " " + stock.volume());
         });
     }
+
+    /// Buys the stock with given info
+    /// @param stock Stock bought
+    public void buyStock(Stock stock) throws StockNotFoundException {
+        stockService.buyStock(stock);
+    }
+
+    /// Sells the stock with given info
+    /// @param stock Stock sold
+    public void sellStock(Stock stock) throws StockNotFoundException, TooFewStocksOwnedException {
+        stockService.sellStock(stock);
+    }
 }

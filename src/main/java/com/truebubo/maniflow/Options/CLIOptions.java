@@ -4,31 +4,147 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Optional;
 
 /// Used for handling of CLI arguments given to the application
 public final class CLIOptions {
     public enum SupportedOptions {
-        HELP("help"),
-        VERSION("version"),
-        STATS("stats"),
-        ID("id"),
-        CURRENCY("currency"),
-        INCOME("add-income"),
-        LIST_INCOME("list-income"),
-        CHANGE_INCOME("change-income"),
-        EXPANSE("add-expanse"),
-        LIST_EXPANSE("list-expanse"),
-        CHANGE_EXPANSE("change-expanse"),
-        DEBT("add-debt"),
-        INTEREST("yearly-interest"),
-        LIST_DEBT("list-debt"),
-        PAY_DEBT("pay-debt"),
-        BUY_STOCK("buy-stock"),
-        SELL_STOCK("sell-stock");
+        HELP(Option.builder()
+                .desc("Show help")
+                .option("h")
+                .longOpt("help")
+                .build()),
 
-        public final String longOption;
-        SupportedOptions(String longOption) {
-            this.longOption = longOption;
+        VERSION(Option.builder()
+                .desc("Show version")
+                .option("v")
+                .longOpt("version")
+                .build()),
+
+        STATS(Option.builder()
+                .desc("Show statistics")
+                .option("s")
+                .longOpt("stats")
+                .build()),
+
+        ID(Option.builder()
+                .desc("Set the entry effected")
+                .longOpt("id")
+                .type(Long.class)
+                .argName("ID of the entry to be effected")
+                .build()),
+
+        CURRENCY(Option.builder()
+                .desc("Set the currency used")
+                .option("c")
+                .longOpt("currency")
+                .argName("Currency code")
+                .build()),
+
+        INCOME(Option.builder()
+                .desc("Add income")
+                .option("i")
+                .longOpt("add-income")
+                .type(BigDecimal.class)
+                .argName("Income")
+                .build()),
+
+        REPEATS_AFTER(Option.builder()
+                .desc("Repeats after this many days")
+                .option("r")
+                .longOpt("repeat")
+                .type(Integer.class)
+                .argName("Days")
+                .build()
+        ),
+
+        LIST_INCOME(Option.builder()
+                .desc("List incomes")
+                .option("li")
+                .longOpt("list-incomes")
+                .build()),
+
+        CHANGE_INCOME(Option.builder()
+                .desc("Change income")
+                .option("ci")
+                .longOpt("change-income")
+                .type(BigDecimal.class)
+                .argName("New income")
+                .build()),
+
+        EXPENSE(Option.builder()
+                .option("e")
+                .longOpt("add-expense")
+                .type(BigDecimal.class)
+                .argName("Expense")
+                .desc("Add expense")
+                .build()),
+
+        LIST_EXPENSE(Option.builder()
+                .desc("List expenses")
+                .option("le")
+                .longOpt("list-expenses")
+                .build()),
+
+        CHANGE_EXPENSE(Option.builder()
+                .desc("Change expense")
+                .option("ce")
+                .longOpt("change-expense")
+                .type(BigDecimal.class)
+                .argName("New expense")
+                .build()),
+
+        DEBT(Option.builder()
+                .desc("Add debt")
+                .option("db")
+                .longOpt("add-debt")
+                .type(BigDecimal.class)
+                .argName("New debt")
+                .build()),
+
+        INTEREST(Option.builder()
+                .desc("Yearly interest")
+                .option("yi")
+                .longOpt("yearly-interest")
+                .type(BigDecimal.class)
+                .argName("Interest rate")
+                .build()),
+
+        LIST_DEBT(Option.builder()
+                .desc("List debts")
+                .option("ld")
+                .longOpt("list-debts")
+                .build()),
+
+        PAY_DEBT(Option.builder()
+                .desc("Pay debt")
+                .option("pd")
+                .longOpt("pay-debts")
+                .type(BigDecimal.class)
+                .argName("Amount paid")
+                .build()),
+
+        BUY_STOCK(Option.builder()
+                .desc("List owned stocks (Accepts format {ticket}-{quantity})")
+                .option("ls")
+                .longOpt("list-stock")
+                .type(String.class)
+                .argName("Stock")
+                .build()),
+
+        SELL_STOCK(Option.builder()
+                .desc("Buy stock (Accepts format {ticket}-{quantity}")
+                .option("ss")
+                .longOpt("sell-stock")
+                .type(String.class)
+                .argName("Stock info")
+                .build());
+
+        public final Option option;
+
+        SupportedOptions(Option option) {
+            this.option = option;
         }
     }
 
@@ -48,212 +164,8 @@ public final class CLIOptions {
 
     /// Parses all the options given
     private static void setParsedOptions() {
-        setProjectOptions();
-        setStatsOption();
-        setIDOption();
-        setCurrencyOption();
-        setIncomeOptions();
-        setExpenseOptions();
-        addDebtOptions();
-    }
-
-    private static void setProjectOptions() {
-        // Show help with instruction on how to operate Maniflow
-        options.addOption(
-                Option.builder()
-                        .desc("Show help")
-                        .option("h")
-                        .longOpt("help")
-                        .build()
-        );
-
-        // Show the installed version of Maniflow
-        options.addOption(
-                Option.builder()
-                        .desc("Show version")
-                        .option("v")
-                        .longOpt("version")
-                        .build()
-        );
-    }
-
-    private static void setStatsOption() {
-        // Show analysis of your money handling
-        options.addOption(
-                Option.builder()
-                        .desc("Show statistics")
-                        .option("s")
-                        .longOpt("stats")
-                        .build()
-        );
-    }
-
-    private static void setIDOption() {
-        // ID of the entry effected
-        options.addOption(
-                Option.builder()
-                        .desc("Set the entry effected")
-                        .longOpt("id")
-                        .type(Long.class)
-                        .argName("ID of the entry to be effected")
-                        .build()
-        );
-    }
-
-    private static void setCurrencyOption() {
-        // Sets the currency used with their code according to ISO 4217
-        options.addOption(
-                Option.builder()
-                        .desc("Set the currency used")
-                        .option("c")
-                        .longOpt("currency")
-                        .argName("Currency code")
-                        .build()
-        );
-    }
-
-    private static void setIncomeOptions() {
-        // Add income
-        options.addOption(
-                Option.builder()
-                        .desc("Add income")
-                        .option("i")
-                        .longOpt("add-income")
-                        .type(BigDecimal.class)
-                        .argName("Income")
-                        .build()
-        );
-
-        // List incomes
-        options.addOption(
-                Option.builder()
-                        .desc("List incomes")
-                        .option("li")
-                        .longOpt("list-incomes")
-                        .build()
-        );
-
-        // Change income, changing to zero deletes the entry
-        options.addOption(
-                Option.builder()
-                        .desc("Change income")
-                        .option("ci")
-                        .longOpt("change-income")
-                        .type(BigDecimal.class)
-                        .argName("New income")
-                        .build()
-        );
-    }
-
-    private static void setExpenseOptions() {
-        // Add expense
-        options.addOption(
-                Option.builder()
-                        .option("e")
-                        .longOpt("add-expense")
-                        .type(BigDecimal.class)
-                        .argName("Expense")
-                        .desc("Add expense")
-                        .build()
-        );
-
-        // List expenses
-        options.addOption(
-                Option.builder()
-                        .desc("List expenses")
-                        .option("le")
-                        .longOpt("list-expenses")
-                        .build()
-        );
-
-        // Change expense, changing to zero deletes the entry
-        options.addOption(
-                Option.builder()
-                        .desc("Change expense")
-                        .option("ce")
-                        .longOpt("change-expense")
-                        .type(BigDecimal.class)
-                        .argName("New expense")
-                        .build()
-        );
-    }
-
-    private static void addDebtOptions() {
-        // Add debt
-        options.addOption(
-                Option.builder()
-                        .desc("Add debt")
-                        .option("db")
-                        .longOpt("add-debt")
-                        .type(BigDecimal.class)
-                        .argName("New debt")
-                        .build()
-        );
-
-        // Set yearly interest
-        options.addOption(
-                Option.builder()
-                        .desc("Yearly interest")
-                        .option("yi")
-                        .longOpt("yearly-interest")
-                        .type(BigDecimal.class)
-                        .argName("Interest rate")
-                        .build()
-        );
-
-        // List debts
-        options.addOption(
-                Option.builder()
-                        .desc("List debts")
-                        .option("ld")
-                        .longOpt("list-debts")
-                        .build()
-        );
-
-        // Pay debt
-        options.addOption(
-                Option.builder()
-                        .desc("Pay debt")
-                        .option("pd")
-                        .longOpt("pay-debts")
-                        .type(BigDecimal.class)
-                        .argName("Amount paid")
-                        .build()
-        );
-    }
-
-    private static void addStockOptions() {
-        // List stocks
-        options.addOption(
-                Option.builder()
-                        .desc("List owned stocks")
-                        .option("ls")
-                        .longOpt("list-stock")
-                        .build()
-        );
-
-        // Buy stock
-        options.addOption(
-                Option.builder()
-                        .desc("Buy stock (Accepts format {ticket}-{quantity}")
-                        .option("bs")
-                        .longOpt("buy-stock")
-                        .type(String.class)
-                        .argName("Stock info")
-                        .build()
-        );
-
-        // Sales owned stock
-        options.addOption(
-                Option.builder()
-                        .desc("Buy stock (Accepts format {ticket}-{quantity}")
-                        .option("ss")
-                        .longOpt("sell-stock")
-                        .type(String.class)
-                        .argName("Stock info")
-                        .build()
-        );
-
-
+        Arrays.stream(SupportedOptions.values()).forEach(option -> {
+            options.addOption(option.option);
+        });
     }
 }

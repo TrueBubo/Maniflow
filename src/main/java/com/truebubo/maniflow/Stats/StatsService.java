@@ -40,15 +40,20 @@ public class StatsService {
         Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.getIncomes().stream().collect(
                 groupingBy(Income::currencyDesignation,
                         reducing(BigDecimal.ZERO, (Income income) -> income.value().multiply(BigDecimal.valueOf(
-                                income.repeatsAfterDays() < 1 ? 1 // Does not repeat. Designated value is -1, but this handles everything invalid
-                                        : income.created().until(now, ChronoUnit.DAYS) / income.repeatsAfterDays() + 1)
-                        ), BigDecimal::add)));
+                                        income.repeatsAfterDays().map(repeatsAfter -> income.created().until(now, ChronoUnit.DAYS) / repeatsAfter + 1).orElse(1L)
+                                )), BigDecimal::add
+                        )
+                )
+        );
 
         expenseService.getExpenses().forEach(expense ->
                 ownsMoneyPerCurrency.put(expense.currencyDesignation(),
                         ownsMoneyPerCurrency.getOrDefault(expense.currencyDesignation(), BigDecimal.ZERO)
-                                .subtract(expense.value()
-                                )));
+                                .subtract(expense.value().multiply(BigDecimal.valueOf(
+                                        expense.repeatsAfterDays().map(repeatsAfter -> expense.created().until(now, ChronoUnit.DAYS) / repeatsAfter + 1).orElse(1L))
+                                ))
+                )
+        );
 
         Map<String, BigDecimal> ownsStocksPerTicket = stockService.getStockHoldings().stream().collect(
                 groupingBy(Stock::ticket, reducing(BigDecimal.ZERO, Stock::volume, BigDecimal::add)
