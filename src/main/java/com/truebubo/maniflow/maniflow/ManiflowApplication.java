@@ -10,10 +10,11 @@ import static java.util.Arrays.stream;
 @SpringBootApplication
 public class ManiflowApplication {
     public static void main(String[] args) {
-        Consumer<String[]> selectedMode = stream(args).anyMatch(arg -> arg.equals("-g") || arg.equals("--gui"))
-                ? GUI::start
-                : CLI::start;
-        selectedMode.accept(args);
+        UIMode mode = stream(args).anyMatch(arg -> arg.equals("-g") || arg.equals("--gui"))
+            ? new GUI()
+            : new CLI();
+
+        mode.start(args);
     }
 
 }
