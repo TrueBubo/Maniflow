@@ -1,10 +1,8 @@
 package com.truebubo.maniflow.Income;
 
-import com.truebubo.maniflow.Money.CurrencyDesignation;
 import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.List;
 
 /// Handles business logic behind income
