@@ -16,19 +16,19 @@ public class StatsViewCLI {
         this.statsService = statsService;
     }
 
-    private static void showMoneyOwned(Map<CurrencyDesignation, BigDecimal> moneyOwned) {
+    private static void showMoneyOwned(@NonNull Map<CurrencyDesignation, BigDecimal> moneyOwned) {
         System.out.println("Money owned:");
         moneyOwned.forEach((currencyDesignation, value) ->
                 System.out.println("\t" + currencyDesignation + ": " + value));
     }
 
-    private static void showStocks(Map<String, BigDecimal> stocks) {
+    private static void showStocks(@NonNull Map<String, BigDecimal> stocks) {
         System.out.println("Stocks:");
         stocks.forEach((ticket, amount) ->
                 System.out.println("\t" + ticket + ": " + amount));
     }
 
-    private static void showDebts(Map<CurrencyDesignation, BigDecimal> debts) {
+    private static void showDebts(@NonNull Map<CurrencyDesignation, BigDecimal> debts) {
         System.out.println("Debts:");
         debts.forEach((currencyDesignation, value) ->
                 System.out.println("\t" + currencyDesignation + ": " + value));

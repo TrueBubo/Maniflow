@@ -1,5 +1,7 @@
 package com.truebubo.maniflow.Expense;
 
+import org.springframework.lang.NonNull;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class ExpenseService {
     /// Service for expenses
     ///
     /// @param expenseRepository Repository for data about expenses
-    public ExpenseService(ExpenseRepository expenseRepository) {
+    public ExpenseService(@NonNull ExpenseRepository expenseRepository) {
         this.expenseRepository = expenseRepository;
     }
 
@@ -24,7 +26,7 @@ public class ExpenseService {
     /// Saves the expense
     ///
     /// @param expense Information about the expense to be added
-    public void addExpense(Expense expense) {
+    public void addExpense(@NonNull Expense expense) {
         expenseRepository.saveExpense(expense);
     }
 
@@ -32,7 +34,7 @@ public class ExpenseService {
     ///
     /// @param id        ID identifying the expense. It is the left value displayed when calling showExpenses
     /// @param newAmount Will update the value to this value. If set to zero. The value will be removed
-    public void changeExpense(int id, BigDecimal newAmount) {
+    public void changeExpense(int id, @NonNull BigDecimal newAmount) {
         expenseRepository.changeExpense(id, newAmount);
     }
 }

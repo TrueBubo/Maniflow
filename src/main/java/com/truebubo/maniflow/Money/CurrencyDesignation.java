@@ -1,5 +1,7 @@
 package com.truebubo.maniflow.Money;
 
+import org.springframework.lang.NonNull;
+
 /// 3 letter codes of currencies
 public enum CurrencyDesignation {
     /// US dollar
@@ -14,7 +16,8 @@ public enum CurrencyDesignation {
     /// Parses currency designation from a string
     /// @param designation 3 letter code of a currency
     /// @return Corresponding currency
-    public static CurrencyDesignation fromString(String designation) throws UnsupportedCurrencyException {
+    /// @throws UnsupportedCurrencyException If the currency designation is not found in the list of supported currencies
+    public static CurrencyDesignation fromString(@NonNull String designation) throws UnsupportedCurrencyException {
         return switch (designation.toUpperCase()) {
             case "USD" -> USD;
             case "EUR" -> EUR;

@@ -8,6 +8,7 @@ import com.truebubo.maniflow.Income.IncomeService;
 import com.truebubo.maniflow.Money.CurrencyDesignation;
 import com.truebubo.maniflow.Stock.Stock;
 import com.truebubo.maniflow.Stock.StockService;
+import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -29,10 +30,10 @@ public class StatsService {
     /// @param expenseService Expense service
     /// @param stockService Stock service
     /// @param debtService Debt service
-    public StatsService(IncomeService incomeService,
-                        ExpenseService expenseService,
-                        StockService stockService,
-                        DebtService debtService) {
+    public StatsService(@NonNull IncomeService incomeService,
+                        @NonNull ExpenseService expenseService,
+                        @NonNull StockService stockService,
+                        @NonNull DebtService debtService) {
         this.incomeService = incomeService;
         this.expenseService = expenseService;
         this.stockService = stockService;

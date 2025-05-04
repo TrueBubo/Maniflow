@@ -1,5 +1,7 @@
 package com.truebubo.maniflow.Money;
 
+import org.springframework.lang.NonNull;
+
 /// Used for providing a way for all the applications to use the same converter
 public class CurrencyConverterFactory {
     private static CurrencyConverter converter;
@@ -15,7 +17,7 @@ public class CurrencyConverterFactory {
 
     /// Sets a custom converter from outside
     /// @param converter Custom converter
-    public static void setConvertor(CurrencyConverter converter) {
+    public static void setConvertor(@NonNull CurrencyConverter converter) {
         CurrencyConverterFactory.converter = converter;
     }
 }

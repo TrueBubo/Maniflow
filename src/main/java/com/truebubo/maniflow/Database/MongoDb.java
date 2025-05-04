@@ -15,7 +15,7 @@ public class MongoDb {
 
     /// Lazily gets instance
     /// @return Reused or new mongo client
-    public static MongoClient getInstance() {
+    public static @NonNull MongoClient getInstance() {
         if (instance != null) return instance;
 
         final Properties properties = new Properties();
