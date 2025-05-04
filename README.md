@@ -5,6 +5,7 @@ The application integrates managing your debts, incomes, expenses and your stock
 ## Installation
 Clone the repo: `git clone https://github.com/TrueBubo/Maniflow`  
 Go to the project directory: `cd Maniflow`  
+Enter your Polygon API key in `api.properties`: `vim api.properties`
 Start the MongoDB database: `sudo docker-compose up -d`  
 Build app: `./mvnw clean package`
 
