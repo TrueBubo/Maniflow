@@ -18,9 +18,10 @@ public class StockService {
     private final ExpenseRepository expenseRepository;
 
     /// Initializes stock service with repositories
-    /// @param stockRepository Stock repository
-    /// @param stockPriceFinder Finds stock prices
-    /// @param incomeRepository Income repository
+    ///
+    /// @param stockRepository   Stock repository
+    /// @param stockPriceFinder  Finds stock prices
+    /// @param incomeRepository  Income repository
     /// @param expenseRepository Expense repository
     public StockService(@NonNull StockRepository stockRepository, @NonNull StockPriceFinder stockPriceFinder,
                         @NonNull IncomeRepository incomeRepository, @NonNull ExpenseRepository expenseRepository) {
@@ -59,7 +60,7 @@ public class StockService {
     ///
     /// @param stock Information about the stock sold
     /// @throws TooFewStocksOwnedException When quantity sold is larger than owned
-    /// @throws StockNotFoundException Stock was not found by an API
+    /// @throws StockNotFoundException     Stock was not found by an API
     public void sellStock(@NonNull Stock stock) throws TooFewStocksOwnedException, StockNotFoundException {
         var stockPrice = stockPriceFinder.find(stock.ticket());
         if (stockPrice.isEmpty())

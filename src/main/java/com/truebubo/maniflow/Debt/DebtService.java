@@ -8,6 +8,7 @@ public class DebtService {
     DebtRepository debtRepository;
 
     /// Service for debts
+    ///
     /// @param debtRepository Repository for data about debts
     public DebtService(DebtRepository debtRepository) {
         this.debtRepository = debtRepository;

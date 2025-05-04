@@ -22,6 +22,7 @@ public class MongoIncomeRepository implements IncomeRepository {
     private final MongoCollection<Income> incomeCollection;
 
     /// Creates mongo repository
+    ///
     /// @param mongoClient Mongo client to be used
     public MongoIncomeRepository(@NonNull MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase("local");

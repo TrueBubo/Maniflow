@@ -9,7 +9,7 @@ import com.truebubo.maniflow.Options.CLIOptions;
 import com.truebubo.maniflow.Stats.StatsService;
 import com.truebubo.maniflow.Stats.StatsViewCLI;
 import com.truebubo.maniflow.Stock.*;
-import com.truebubo.maniflow.maniflow.Help;
+import com.truebubo.maniflow.Maniflow.Help;
 import org.apache.commons.cli.*;
 
 import java.math.BigDecimal;
@@ -204,9 +204,11 @@ public final class CLI implements UIMode {
                 return;
             }
 
+            Help.showHelpCLI(options);
+
 
         } catch (ParseException e) {
-            System.out.println(e);;
+            System.out.println(e);
         }
     }
 }

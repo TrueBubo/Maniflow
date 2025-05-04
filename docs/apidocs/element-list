@@ -1,0 +1,11 @@
+com.truebubo.maniflow.Database
+com.truebubo.maniflow.Debt
+com.truebubo.maniflow.Expense
+com.truebubo.maniflow.Income
+com.truebubo.maniflow.Maniflow
+com.truebubo.maniflow.Money
+com.truebubo.maniflow.Money.CurrencyTypes
+com.truebubo.maniflow.Options
+com.truebubo.maniflow.Stats
+com.truebubo.maniflow.Stock
+com.truebubo.maniflow.UIMode

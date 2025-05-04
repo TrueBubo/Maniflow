@@ -12,6 +12,7 @@ public class StockViewCLI {
     private final StockService stockService;
 
     /// Created CLI frontend for stocks
+    ///
     /// @param stockService Service for stocks
     public StockViewCLI(@NonNull StockService stockService) {
         this.stockService = stockService;
@@ -27,6 +28,7 @@ public class StockViewCLI {
     }
 
     /// Buys the stock with given info
+    ///
     /// @param stock Stock bought
     /// @throws StockNotFoundException If stock was not found by API
     public void buyStock(@NonNull Stock stock) throws StockNotFoundException {
@@ -34,8 +36,9 @@ public class StockViewCLI {
     }
 
     /// Sells the stock with given info
+    ///
     /// @param stock Stock sold
-    /// @throws StockNotFoundException If stock was not found by API
+    /// @throws StockNotFoundException     If stock was not found by API
     /// @throws TooFewStocksOwnedException If wanted to sell more than owned
     public void sellStock(@NonNull Stock stock) throws StockNotFoundException, TooFewStocksOwnedException {
         stockService.sellStock(stock);

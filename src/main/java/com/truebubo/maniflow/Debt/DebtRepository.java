@@ -15,6 +15,7 @@ public interface DebtRepository {
     Debt saveDebt(@NonNull Debt debt);
 
     /// Finds the debt with given id
+    ///
     /// @param id ID as shown in showDebts
     /// @return Debt if found otherwise empty
     Optional<Debt> getDebt(int id);
@@ -26,7 +27,7 @@ public interface DebtRepository {
 
     /// Changes the debt with given id
     ///
-    /// @param id ID identifying the debt. It is the left value displayed when calling showExpenses
+    /// @param id        ID identifying the debt. It is the left value displayed when calling showExpenses
     /// @param newAmount Will update the value to this value. If set to zero. The debt will be erased
     /// @return Value of new debt or empty if not exist
     Optional<Debt> changeDebt(int id, @NonNull BigDecimal newAmount);

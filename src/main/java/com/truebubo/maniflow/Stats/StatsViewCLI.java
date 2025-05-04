@@ -4,13 +4,14 @@ import com.truebubo.maniflow.Money.CurrencyDesignation;
 import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Map;
 
 /// CLI Frontend for expense portion of the application
 public class StatsViewCLI {
     private final StatsService statsService;
+
     /// ClI front-end for stats
+    ///
     /// @param statsService Stats back-end
     public StatsViewCLI(@NonNull StatsService statsService) {
         this.statsService = statsService;
@@ -41,7 +42,6 @@ public class StatsViewCLI {
         showMoneyOwned(stats.ownsMoney());
         showStocks(stats.ownsStocks());
         showDebts(stats.owesMoney());
-
 
 
     }

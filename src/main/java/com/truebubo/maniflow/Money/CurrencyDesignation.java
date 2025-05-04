@@ -14,6 +14,7 @@ public enum CurrencyDesignation {
     CZK;
 
     /// Parses currency designation from a string
+    ///
     /// @param designation 3 letter code of a currency
     /// @return Corresponding currency
     /// @throws UnsupportedCurrencyException If the currency designation is not found in the list of supported currencies

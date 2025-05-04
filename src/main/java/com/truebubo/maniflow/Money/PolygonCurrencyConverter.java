@@ -20,23 +20,28 @@ public class PolygonCurrencyConverter implements CurrencyConverter {
 
     /// Schema of result from polygon API
     private record ExchangeResult(
-        String T, /* Exchange symbol */
-        long v, /* Volume */
-        double vw, /* Volume weighted price */
-        double o, /* Opening price */
-        double c, /* Closing price */
-        double h, /* Highest price */
-        double l, /* Lowest price */
-        long t, /* The Unix Msec timestamp for the start of the aggregate window. */
-        long n /* Number of transactions */
-    ) {}
-    private record ExchangeJSON(String ticker, int queryCount, int resultsCount, boolean adjusted, List<ExchangeResult> results, String status, String request_id, int count) {}
+            String T, /* Exchange symbol */
+            long v, /* Volume */
+            double vw, /* Volume weighted price */
+            double o, /* Opening price */
+            double c, /* Closing price */
+            double h, /* Highest price */
+            double l, /* Lowest price */
+            long t, /* The Unix Msec timestamp for the start of the aggregate window. */
+            long n /* Number of transactions */
+    ) {
+    }
+
+    private record ExchangeJSON(String ticker, int queryCount, int resultsCount, boolean adjusted,
+                                List<ExchangeResult> results, String status, String request_id, int count) {
+    }
 
     private static PolygonCurrencyConverter instance;
+
     private PolygonCurrencyConverter() {
         final Properties properties = new Properties();
         final String apiFile = "api.properties";
-        try (var resourceStream = new FileInputStream(apiFile)){
+        try (var resourceStream = new FileInputStream(apiFile)) {
             properties.load(resourceStream);
             this.apiKey = properties.getProperty("POLYGON_API_KEY");
         } catch (IOException exception) {
@@ -45,15 +50,19 @@ public class PolygonCurrencyConverter implements CurrencyConverter {
     }
 
     /// Lazily gets the converter
+    ///
     /// @return Currency converter
     public static PolygonCurrencyConverter get() {
-        if (instance == null) { instance = new PolygonCurrencyConverter(); }
+        if (instance == null) {
+            instance = new PolygonCurrencyConverter();
+        }
         return instance;
     }
 
     /// How much of the {to currency} can we buy for 1 {from currency}
+    ///
     /// @param from Currency we sell
-    /// @param to Currency we buy
+    /// @param to   Currency we buy
     /// @return exchange rate
     @Override
     public Optional<Double> convert(CurrencyDesignation from, CurrencyDesignation to) {

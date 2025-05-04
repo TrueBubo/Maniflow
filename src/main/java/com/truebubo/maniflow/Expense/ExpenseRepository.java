@@ -13,9 +13,11 @@ public interface ExpenseRepository {
     ///
     /// @param expense Expense saved
     /// @return expense saved
-    @Nullable Expense saveExpense(@NonNull Expense expense);
+    @Nullable
+    Expense saveExpense(@NonNull Expense expense);
 
     /// Finds the expense with given id
+    ///
     /// @param id ID as shown by showExpenses
     /// @return Expense if found else empty
     Optional<Expense> getExpense(int id);
@@ -23,7 +25,8 @@ public interface ExpenseRepository {
     /// Finds all the expenses saved
     ///
     /// @return List of all the expenses saved
-    @NonNull List<Expense> getExpenses();
+    @NonNull
+    List<Expense> getExpenses();
 
     /// Changes the expense with given ID
     ///

@@ -7,6 +7,7 @@ public class CurrencyConverterFactory {
     private static CurrencyConverter converter;
 
     /// Lazily returns a currency converter
+    ///
     /// @return Reused or new converter
     public static CurrencyConverter getConverter() {
         if (converter == null) {
@@ -16,6 +17,7 @@ public class CurrencyConverterFactory {
     }
 
     /// Sets a custom converter from outside
+    ///
     /// @param converter Custom converter
     public static void setConvertor(@NonNull CurrencyConverter converter) {
         CurrencyConverterFactory.converter = converter;

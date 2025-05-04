@@ -23,6 +23,7 @@ public class MongoDebtRepository implements DebtRepository {
     private final MongoCollection<Debt> debtCollection;
 
     /// Creates mongo repository
+    ///
     /// @param mongoClient Mongo client to be used
     public MongoDebtRepository(@NonNull MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase("local");

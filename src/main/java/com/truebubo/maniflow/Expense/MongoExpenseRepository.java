@@ -22,6 +22,7 @@ public class MongoExpenseRepository implements ExpenseRepository {
     private final MongoCollection<Expense> expenseCollection;
 
     /// Creates mongo repository
+    ///
     /// @param mongoClient Mongo client to be used
     public MongoExpenseRepository(@NonNull MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase("local");

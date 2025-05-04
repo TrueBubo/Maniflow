@@ -26,10 +26,11 @@ public class StatsService {
     private final DebtService debtService;
 
     /// Initializes stats service with other services
-    /// @param incomeService Income service
+    ///
+    /// @param incomeService  Income service
     /// @param expenseService Expense service
-    /// @param stockService Stock service
-    /// @param debtService Debt service
+    /// @param stockService   Stock service
+    /// @param debtService    Debt service
     public StatsService(@NonNull IncomeService incomeService,
                         @NonNull ExpenseService expenseService,
                         @NonNull StockService stockService,
@@ -41,6 +42,7 @@ public class StatsService {
     }
 
     /// Returns financial stats for the user
+    ///
     /// @return Stats for the user
     public Stats getMoneyStats() {
         final Instant now = Instant.now();
@@ -58,8 +60,8 @@ public class StatsService {
                 ownsMoneyPerCurrency.put(expense.currencyDesignation(),
                         ownsMoneyPerCurrency.getOrDefault(expense.currencyDesignation(), BigDecimal.ZERO)
                                 .subtract(expense.value().multiply(BigDecimal.valueOf(
-                                        expense.repeatsAfterDays() == null ? 1
-                                                : expense.created().until(now, ChronoUnit.DAYS) / expense.repeatsAfterDays() + 1
+                                                expense.repeatsAfterDays() == null ? 1
+                                                        : expense.created().until(now, ChronoUnit.DAYS) / expense.repeatsAfterDays() + 1
                                         )
                                 ))
                 )

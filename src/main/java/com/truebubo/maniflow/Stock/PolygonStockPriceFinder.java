@@ -33,14 +33,17 @@ public class PolygonStockPriceFinder implements StockPriceFinder {
             double l, /* Lowest price */
             long t, /* The Unix Msec timestamp for the start of the aggregate window. */
             long n /* Number of transactions */
-    ) {}
+    ) {
+    }
 
-    private record ExchangeJSON(String ticker, int queryCount, int resultsCount, boolean adjusted, List<ExchangeResult> results, String status, String request_id, int count) {}
+    private record ExchangeJSON(String ticker, int queryCount, int resultsCount, boolean adjusted,
+                                List<ExchangeResult> results, String status, String request_id, int count) {
+    }
 
     private PolygonStockPriceFinder() {
         final Properties properties = new Properties();
         final String apiFile = "api.properties";
-        try (var resourceStream = new FileInputStream(apiFile)){
+        try (var resourceStream = new FileInputStream(apiFile)) {
             properties.load(resourceStream);
             this.apiKey = properties.getProperty("POLYGON_API_KEY");
         } catch (IOException exception) {
@@ -49,9 +52,12 @@ public class PolygonStockPriceFinder implements StockPriceFinder {
     }
 
     /// Lazily gets stock price finder
+    ///
     /// @return stock finder
     public static PolygonStockPriceFinder get() {
-        if (instance == null) { instance = new PolygonStockPriceFinder(); }
+        if (instance == null) {
+            instance = new PolygonStockPriceFinder();
+        }
         return instance;
     }
 

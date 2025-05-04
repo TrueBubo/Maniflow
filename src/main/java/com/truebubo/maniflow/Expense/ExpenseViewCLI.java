@@ -13,6 +13,7 @@ public class ExpenseViewCLI {
     private final ExpenseService expenseService;
 
     /// CLI front-end for expenses
+    ///
     /// @param expenseService service for accessing expense back-end
     public ExpenseViewCLI(@NonNull ExpenseService expenseService) {
         this.expenseService = expenseService;

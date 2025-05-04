@@ -184,6 +184,7 @@ public final class CLIOptions {
     }
 
     /// Gets options
+    ///
     /// @return Lazily loaded option
     public static Options get() {
         if (options == null) {
