@@ -169,7 +169,8 @@ public final class CLI implements UIMode {
                 String input = commandLine.getOptionValue(CLIOptions.SupportedOptions.BUY_STOCK.option);
                 String[] result = input.split("-");
                 if (result.length != 2) {
-                    throw new RuntimeException("Buying stock requires option in the format {ticket}-{quantity}");
+                    System.err.println("Buying stock requires option in the format {ticket}-{quantity}");
+                    return;
                 }
                 String ticket = result[0];
                 try {
@@ -188,7 +189,8 @@ public final class CLI implements UIMode {
                 String input = commandLine.getOptionValue(CLIOptions.SupportedOptions.SELL_STOCK.option);
                 String[] result = input.split("-");
                 if (result.length != 2) {
-                    throw new RuntimeException("Selling stock requires option in the format {ticket}-{quantity}");
+                    System.err.println("Selling stock requires option in the format {ticket}-{quantity}");
+                    return;
                 }
                 String ticket = result[0];
                 try {
