@@ -210,7 +210,7 @@ public final class CLI implements UIMode {
 
 
         } catch (ParseException e) {
-            System.out.println(e);
+            System.err.println(e.getMessage());
         }
     }
 }
