@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 /// British pound
 public final class GBP extends Money<GBP> {
     /// Small unit of currency
-    public final static com.truebubo.maniflow.money.CurrencyTypes.GBP Penny = new com.truebubo.maniflow.money.CurrencyTypes.GBP(BigDecimal.valueOf(0.01));
+    public final static GBP Penny = new GBP(BigDecimal.valueOf(0.01));
     /// Large unit of currency
-    public final static com.truebubo.maniflow.money.CurrencyTypes.GBP Pound = new com.truebubo.maniflow.money.CurrencyTypes.GBP(BigDecimal.ONE);
+    public final static GBP Pound = new GBP(BigDecimal.ONE);
 
     private GBP(@NonNull BigDecimal amount) {
         super(amount, CurrencyDesignation.GBP);

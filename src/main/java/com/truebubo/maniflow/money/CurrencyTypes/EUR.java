@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 /// Euro
 public final class EUR extends Money<EUR> {
     /// Small unit of currency
-    public final static com.truebubo.maniflow.money.CurrencyTypes.EUR Cent = new com.truebubo.maniflow.money.CurrencyTypes.EUR(BigDecimal.valueOf(0.01));
+    public final static EUR Cent = new EUR(BigDecimal.valueOf(0.01));
     /// Large unit of currency
-    public final static com.truebubo.maniflow.money.CurrencyTypes.EUR Euro = new com.truebubo.maniflow.money.CurrencyTypes.EUR(BigDecimal.ONE);
+    public final static EUR Euro = new EUR(BigDecimal.ONE);
 
     private EUR(@NonNull BigDecimal amount) {
         super(amount, CurrencyDesignation.EUR);
