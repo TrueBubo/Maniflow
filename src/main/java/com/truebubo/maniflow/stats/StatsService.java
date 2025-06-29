@@ -48,7 +48,7 @@ public class StatsService {
     /// @return Stats for the user
     public Stats getMoneyStats() {
         final Instant now = Instant.now();
-        Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.getIncomes().stream().collect(
+        Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.get().stream().collect(
                 groupingBy(Income::currencyDesignation,
                         reducing(BigDecimal.ZERO, (Income income) -> income.value().multiply(BigDecimal.valueOf(
                                         income.repeatsAfterDays() == null ? 1
@@ -58,7 +58,7 @@ public class StatsService {
                 )
         );
 
-        expenseService.getExpenses().forEach(expense ->
+        expenseService.get().forEach(expense ->
                 ownsMoneyPerCurrency.put(expense.currencyDesignation(),
                         ownsMoneyPerCurrency.getOrDefault(expense.currencyDesignation(), BigDecimal.ZERO)
                                 .subtract(expense.value().multiply(BigDecimal.valueOf(

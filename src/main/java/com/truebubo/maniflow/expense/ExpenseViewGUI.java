@@ -1,12 +1,11 @@
 package com.truebubo.maniflow.expense;
 
-import com.truebubo.maniflow.income.Income;
 import com.truebubo.maniflow.money.CurrencyDesignation;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.BigDecimalField;
@@ -16,13 +15,9 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.Instant;
-import java.time.ZoneId;
 import java.util.List;
 
-import static com.truebubo.maniflow.ManiflowApplication.decimalRoundingDigits;
-import static com.truebubo.maniflow.ManiflowApplication.timeFormatter;
 import static com.truebubo.maniflow.commongui.CommonGUI.*;
 
 /// GUI Frontend for expense portion of the application
@@ -52,7 +47,7 @@ public class ExpenseViewGUI extends VerticalLayout {
                 addExpenseTitle,
                 getExpenseFormLayout(),
                 expensesTitle,
-                getExpensesParagraph(expenseService.getExpenses().reversed())
+                getExpensesDiv(expenseService.get())
         );
 
         add(verticalLayout);
@@ -68,27 +63,14 @@ public class ExpenseViewGUI extends VerticalLayout {
         return getFormLayout(submitButton, valueField, currencyBox, repeatsAfterDaysField);
     }
 
-    private static Paragraph getExpensesParagraph(List<Expense> incomes) {
-        final var expensesParagraph = new Paragraph();
-        expensesParagraph.getStyle().set("white-space", "pre-line");
-        expensesParagraph.setId("expenseList");
-
-        incomes.forEach(expense -> {
-            final var roundedValue = expense.value().setScale(decimalRoundingDigits, RoundingMode.HALF_DOWN);
-            final var time = timeFormatter.format(expense.created().atZone(ZoneId.systemDefault()));
-            final var repeatSuffix = (expense.repeatsAfterDays() != null) ? " every " + expense.repeatsAfterDays() + " days" : "";
-            expensesParagraph.add(
-                    time + " - " + roundedValue + expense.currencyDesignation() + repeatSuffix + "\n"
-            );
-        });
-
-        return expensesParagraph;
+    private Div getExpensesDiv(List<Expense> expenses) {
+        return getExchangesDiv("Expenses", expenses, expenseService, this::init);
     }
 
 
     private void addSubmitHandler(Button submitButton, ExpenseService expenseService, BigDecimalField valueField, ComboBox<CurrencyDesignation> currencyBox, IntegerField repeatsAfterDaysField) {
         submitButton.addClickListener(_ -> {
-            expenseService.addExpense(
+            expenseService.add(
                     new Expense(
                             valueField.getValue(),
                             currencyBox.getValue(),

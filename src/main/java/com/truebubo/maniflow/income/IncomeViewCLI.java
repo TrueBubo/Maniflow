@@ -20,7 +20,7 @@ public class IncomeViewCLI {
 
     /// Displays the list of all the incomes for the user
     public void showIncomes() {
-        List<Income> incomes = incomeService.getIncomes();
+        List<Income> incomes = incomeService.get();
         range(0, incomes.size()).forEach(idx -> {
             final var income = incomes.get(idx);
             System.out.println(idx + 1 + ". " + income.value() + income.currencyDesignation());
@@ -31,7 +31,7 @@ public class IncomeViewCLI {
     ///
     /// @param income Information about the income to be added
     public void addIncome(Income income) {
-        incomeService.addIncome(income);
+        incomeService.add(income);
     }
 
     /// Change the value on the income with given id
@@ -39,6 +39,6 @@ public class IncomeViewCLI {
     /// @param id        ID identifying the income. It is the left value displayed when calling showIncomes
     /// @param newAmount Will update the value to this value. If set to zero. The value will be removed
     public void changeIncome(int id, @NonNull BigDecimal newAmount) {
-        incomeService.changeIncome(id, newAmount);
+        incomeService.change(id, newAmount);
     }
 }

@@ -4,8 +4,8 @@ import com.truebubo.maniflow.money.CurrencyDesignation;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.BigDecimalField;
@@ -16,13 +16,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.Instant;
-import java.time.ZoneId;
 import java.util.List;
 
-import static com.truebubo.maniflow.ManiflowApplication.decimalRoundingDigits;
-import static com.truebubo.maniflow.ManiflowApplication.timeFormatter;
 import static com.truebubo.maniflow.commongui.CommonGUI.*;
 
 /// GUI Frontend for income portion of the application
@@ -52,7 +48,7 @@ public class IncomeViewGUI extends VerticalLayout {
                 addIncomeTitle,
                 getIncomeFormLayout(),
                 incomesTitle,
-                getIncomesParagraph(incomeService.getIncomes().reversed())
+                getIncomesDiv(incomeService.get())
         );
 
         add(verticalLayout);
@@ -71,27 +67,13 @@ public class IncomeViewGUI extends VerticalLayout {
         return getFormLayout(submitButton, valueField, currencyBox, repeatsAfterDaysField);
     }
 
-    private static Paragraph getIncomesParagraph(List<Income> incomes) {
-        final var incomesParagraph = new Paragraph();
-        incomesParagraph.getStyle().set("white-space", "pre-line");
-        incomesParagraph.setId("incomesList");
-
-        incomes.forEach(income -> {
-            final var roundedValue = income.value().setScale(decimalRoundingDigits, RoundingMode.HALF_DOWN);
-            final var time = timeFormatter.format(income.created().atZone(ZoneId.systemDefault()));
-            ;
-            final var repeatSuffix = (income.repeatsAfterDays() != null) ? " every " + income.repeatsAfterDays() + " days" : "";
-            incomesParagraph.add(
-                    time + " - " + roundedValue + income.currencyDesignation() + repeatSuffix + "\n"
-            );
-        });
-
-        return incomesParagraph;
+    private Div getIncomesDiv(List<Income> incomes) {
+        return getExchangesDiv("Income", incomes, incomeService, this::init);
     }
 
     private void addSubmitHandler(Button submitButton, IncomeService incomeService, BigDecimalField valueField, ComboBox<CurrencyDesignation> currencyBox, IntegerField repeatsAfterDaysField) {
         submitButton.addClickListener(_ -> {
-            incomeService.addIncome(
+            incomeService.add(
                     new Income(
                             valueField.getValue(),
                             currencyBox.getValue(),
