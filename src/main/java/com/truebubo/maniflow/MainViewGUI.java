@@ -1,5 +1,6 @@
 package com.truebubo.maniflow;
 
+import com.truebubo.maniflow.expense.ExpenseViewGUI;
 import com.truebubo.maniflow.income.IncomeViewGUI;
 import com.truebubo.maniflow.stats.StatsViewGUI;
 import com.vaadin.flow.component.html.Div;
@@ -20,9 +21,13 @@ import static com.truebubo.maniflow.ManiflowApplication.appName;
 public class MainViewGUI extends VerticalLayout {
     private final StatsViewGUI statsViewGUI;
     private final IncomeViewGUI incomeViewGUI;
-    public MainViewGUI(@NonNull StatsViewGUI statsViewGUI, @NonNull IncomeViewGUI incomeViewGUI) {
+    private final ExpenseViewGUI expenseViewGUI;
+    public MainViewGUI(@NonNull StatsViewGUI statsViewGUI,
+                       @NonNull IncomeViewGUI incomeViewGUI,
+                       @NonNull ExpenseViewGUI expenseViewGUI) {
        this.statsViewGUI = statsViewGUI;
        this.incomeViewGUI = incomeViewGUI;
+       this.expenseViewGUI = expenseViewGUI;
     }
 
     /// Sets up the page
@@ -36,12 +41,11 @@ public class MainViewGUI extends VerticalLayout {
 
         tabSheet.add("Statistics", statsViewGUI);
         tabSheet.add("Income", incomeViewGUI);
+        tabSheet.add("Expense", expenseViewGUI);
 
 
         tabSheet.addSelectedChangeListener(event -> {
             String selectedTabLabel = event.getSelectedTab().getLabel();
-            System.out.println("Selected tab: " + selectedTabLabel);
-
             if ("Statistics".equals(selectedTabLabel)) {
                 statsViewGUI.init();
             }
