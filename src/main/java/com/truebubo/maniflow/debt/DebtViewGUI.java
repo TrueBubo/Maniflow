@@ -98,12 +98,15 @@ public class DebtViewGUI extends VerticalLayout {
 
     private FormLayout getDebtFormLayout() {
         final var valueField = getValueField("Debts", value -> value != null && value.compareTo(BigDecimal.ZERO) < 0);
+        valueField.setRequired(true);
         final var currencyBox = getCurrencyBox("Debt");
-        final var repeatsAfterDaysField = getInterestField();
+        currencyBox.setRequired(true);
+        final var interestField = getInterestField();
+        interestField.setRequired(true);
         final var submitButton = getSubmitButton("Debt");
-        addSubmitHandler(submitButton, debtService, valueField, currencyBox, repeatsAfterDaysField);
-        setUpFormFieldListeners(submitButton, valueField, currencyBox);
-        return getFormLayout(submitButton, valueField, currencyBox, repeatsAfterDaysField);
+        addSubmitHandler(submitButton, debtService, valueField, currencyBox, interestField);
+        setUpFormFieldListeners(submitButton, valueField, currencyBox, interestField);
+        return getFormLayout(submitButton, valueField, currencyBox, interestField);
     }
 
     public static BigDecimalField getInterestField() {

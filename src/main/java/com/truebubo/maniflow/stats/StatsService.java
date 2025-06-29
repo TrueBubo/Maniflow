@@ -47,6 +47,20 @@ public class StatsService {
     ///
     /// @return Stats for the user
     public Stats getMoneyStats() {
+
+        Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = getOwnsMoneyPerCurrency(incomeService, expenseService);
+        Map<String, BigDecimal> ownsStocksPerTicket = stockService.getStockHoldings().stream().collect(
+                groupingBy(Stock::ticket, reducing(BigDecimal.ZERO, Stock::volume, BigDecimal::add)
+                ));
+
+        Map<CurrencyDesignation, BigDecimal> owesMoneyPerCurrency = debtService.getDebts().stream().collect(
+                groupingBy(Debt::currencyDesignation, reducing(BigDecimal.ZERO, Debt::value, BigDecimal::add))
+        );
+
+        return new Stats(ownsMoneyPerCurrency, ownsStocksPerTicket, owesMoneyPerCurrency);
+    }
+
+    public static Map<CurrencyDesignation, BigDecimal> getOwnsMoneyPerCurrency(IncomeService incomeService, ExpenseService expenseService) {
         final Instant now = Instant.now();
         Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.get().stream().collect(
                 groupingBy(Income::currencyDesignation,
@@ -68,15 +82,6 @@ public class StatsService {
                                 ))
                 )
         );
-
-        Map<String, BigDecimal> ownsStocksPerTicket = stockService.getStockHoldings().stream().collect(
-                groupingBy(Stock::ticket, reducing(BigDecimal.ZERO, Stock::volume, BigDecimal::add)
-                ));
-
-        Map<CurrencyDesignation, BigDecimal> owesMoneyPerCurrency = debtService.getDebts().stream().collect(
-                groupingBy(Debt::currencyDesignation, reducing(BigDecimal.ZERO, Debt::value, BigDecimal::add))
-        );
-
-        return new Stats(ownsMoneyPerCurrency, ownsStocksPerTicket, owesMoneyPerCurrency);
+        return ownsMoneyPerCurrency;
     }
 }

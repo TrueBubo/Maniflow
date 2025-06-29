@@ -2,8 +2,11 @@ package com.truebubo.maniflow.stock;
 
 import com.truebubo.maniflow.expense.Expense;
 import com.truebubo.maniflow.expense.ExpenseRepository;
+import com.truebubo.maniflow.expense.ExpenseService;
 import com.truebubo.maniflow.income.Income;
 import com.truebubo.maniflow.income.IncomeRepository;
+import com.truebubo.maniflow.income.IncomeService;
+import com.truebubo.maniflow.stats.StatsService;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -44,12 +47,20 @@ public class StockService {
     ///
     /// @param stock Information about the stock bought
     /// @throws StockNotFoundException Stock was not found by an API
-    public void buyStock(@NonNull Stock stock) throws StockNotFoundException {
+    public void buyStock(@NonNull Stock stock) throws StockNotFoundException, NotEnoughMoneyToBuyException {
         var stockPrice = stockPriceFinder.find(stock.ticket());
-        if (stockPrice.isEmpty())
+        if (stockPrice.isEmpty()) {
             throw new StockNotFoundException("Could not find stock with ticket: " + stock.ticket());
+        }
         StockPrice price = stockPrice.get();
-        expenseRepository.saveExpense(new Expense(price.value().multiply(stock.volume()), price.currency(), Instant.now()));
+        BigDecimal toPay = price.value().multiply(stock.volume());
+        BigDecimal ownsWantedCurrency = StatsService.getOwnsMoneyPerCurrency(new IncomeService(incomeRepository), new ExpenseService(expenseRepository))
+                .getOrDefault(price.currency(), BigDecimal.ZERO);
+        if (toPay.compareTo(ownsWantedCurrency) > 0) {
+            throw new NotEnoughMoneyToBuyException("Not enough money to buy stock");
+        }
+
+        expenseRepository.saveExpense(new Expense(toPay, price.currency(), Instant.now()));
         var latestStockWithTicket = stockRepository.getStock(stock.ticket());
         latestStockWithTicket.ifPresent(oldStock -> stockRepository.deleteStock(oldStock.ticket()));
         var newStock = new Stock(stock.ticket(), stock.volume().add(

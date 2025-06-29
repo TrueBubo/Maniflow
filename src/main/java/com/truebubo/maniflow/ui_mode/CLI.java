@@ -180,6 +180,8 @@ public final class CLI implements UIMode {
                     System.err.println("Unable to parse quantity: " + result[1]);
                 } catch (StockNotFoundException e) {
                     System.err.println("Unable to find stock: " + ticket);
+                } catch (NotEnoughMoneyToBuyException e) {
+                    System.err.println(e.getMessage());
                 }
 
                 return;

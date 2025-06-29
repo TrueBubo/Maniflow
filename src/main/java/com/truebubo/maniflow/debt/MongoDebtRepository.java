@@ -53,7 +53,7 @@ public class MongoDebtRepository implements DebtRepository {
     public Optional<Debt> changeDebt(int id, @NonNull BigDecimal newAmount) {
         return getDebt(id).map(debt -> {
             Instant createdAt = debt.created();
-            if (newAmount.equals(BigDecimal.ZERO)) {
+            if (newAmount.compareTo(BigDecimal.ZERO) <= 0) {
                 debtCollection.deleteOne(eq("created", createdAt));
                 return null;
             }

@@ -30,7 +30,7 @@ public class StockViewCLI {
     ///
     /// @param stock Stock bought
     /// @throws StockNotFoundException If stock was not found by API
-    public void buyStock(@NonNull Stock stock) throws StockNotFoundException {
+    public void buyStock(@NonNull Stock stock) throws StockNotFoundException, NotEnoughMoneyToBuyException {
         stockService.buyStock(stock);
     }
 

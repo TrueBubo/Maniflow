@@ -3,9 +3,7 @@ package com.truebubo.maniflow.commongui;
 import com.truebubo.maniflow.money.CurrencyDesignation;
 import com.truebubo.maniflow.money.MoneyExchange;
 import com.truebubo.maniflow.money.MoneyExchangeService;
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -15,12 +13,13 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.BigDecimalField;
 import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.TextField;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static com.truebubo.maniflow.ManiflowApplication.decimalRoundingDigits;
@@ -39,8 +38,8 @@ public class CommonGUI {
         return formLayout;
     }
 
-    public static BigDecimalField getValueField(String typeOfExchange, Predicate<BigDecimal> validator) {
-        final var valueField = new BigDecimalField("Value");
+    public static BigDecimalField getValueField(String typeOfExchange, String label, Predicate<BigDecimal> validator) {
+        final var valueField = new BigDecimalField(label);
         valueField.setId(typeOfExchange.toLowerCase() + "ValueField");
         valueField.setRequired(true);
 
@@ -50,6 +49,18 @@ public class CommonGUI {
         });
 
         return valueField;
+    }
+
+    public static BigDecimalField getValueField(String typeOfExchange, Predicate<BigDecimal> validator) {
+        return getValueField(typeOfExchange, "Value", validator);
+    }
+
+
+    public static TextField getTextField(String typeOfExchange, String label) {
+        final var textField = new TextField(label);
+        textField.setId(typeOfExchange.toLowerCase() + "TextField");
+        textField.setRequired(true);
+        return textField;
     }
 
     public static ComboBox<CurrencyDesignation> getCurrencyBox(String typeOfExchange) {
@@ -77,15 +88,14 @@ public class CommonGUI {
     }
 
     public static void setUpFormFieldListeners(Button submitButton,
-                                               BigDecimalField valueField,
-                                               ComboBox<CurrencyDesignation> currencyBox
+                                               AbstractSinglePropertyField<?, ?>... fields
     ) {
         Runnable validateFields = () -> {
-            boolean isValid = valueField.getValue() != null && currencyBox.getValue() != null;
+            boolean isValid = Arrays.stream(fields).map(AbstractField::getValue).allMatch(value -> value != null && value != "");
             submitButton.setEnabled(isValid);
         };
-        valueField.addValueChangeListener(_ -> validateFields.run());
-        currencyBox.addValueChangeListener(_ -> validateFields.run());
+        Arrays.stream(fields).forEach(field ->
+                field.addValueChangeListener(_ -> validateFields.run()));
     }
 
     public static Icon getTrash(ComponentEventListener<ClickEvent<Icon>> onClick) {
