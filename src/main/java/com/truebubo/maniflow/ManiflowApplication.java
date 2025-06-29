@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
 
+import java.time.format.DateTimeFormatter;
 
 import static java.util.Arrays.stream;
 
@@ -14,6 +14,8 @@ import static java.util.Arrays.stream;
 @SpringBootApplication
 public class ManiflowApplication {
     public static final String appName = "Maniflow";
+    public static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm");
+    public static final int decimalRoundingDigits = 2;
     /// Function to be executed
     ///
     /// @param args CLI arguments

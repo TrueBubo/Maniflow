@@ -18,13 +18,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Map;
 
+import static com.truebubo.maniflow.ManiflowApplication.decimalRoundingDigits;
+
 /// GUI Frontend for statistics portion of the application
 @UIScope
 @Component
 public class StatsViewGUI extends VerticalLayout {
     private final StatsService statsService;
 
-    final static int decimalRoundingDigits = 2;
 
     public StatsViewGUI(@NonNull StatsService statsService) {
         this.statsService = statsService;
@@ -33,9 +34,10 @@ public class StatsViewGUI extends VerticalLayout {
     /// Sets up the statistics div with its components
     @PostConstruct
     public void init() {
+        removeAll();
         final var horizontalLayout = new HorizontalLayout();
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-        horizontalLayout.setId("layout");
+        horizontalLayout.setId("statsLayout");
         final var stats = statsService.getMoneyStats();
         final var moneyOwnedDiv = getMoneyOwnedDiv(stats.ownsMoney());
         final var stocksOwnedDiv = getStocksOwnedDiv(stats.ownsStocks());
