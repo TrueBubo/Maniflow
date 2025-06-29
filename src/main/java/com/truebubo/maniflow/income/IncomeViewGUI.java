@@ -24,6 +24,7 @@ import java.util.List;
 import static com.truebubo.maniflow.ManiflowApplication.decimalRoundingDigits;
 import static com.truebubo.maniflow.ManiflowApplication.timeFormatter;
 
+/// GUI Frontend for income portion of the application
 @UIScope
 @Component
 public class IncomeViewGUI extends VerticalLayout {
@@ -33,6 +34,7 @@ public class IncomeViewGUI extends VerticalLayout {
         this.incomeService = incomeService;
     }
 
+    /// Sets up the income div with its components
     @PostConstruct
     public void init() {
         final var verticalLayout = new VerticalLayout();
