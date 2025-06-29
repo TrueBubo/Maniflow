@@ -30,6 +30,7 @@ public class StatsViewGUI extends VerticalLayout {
         this.statsService = statsService;
     }
 
+    /// Sets up the statistics div with its components
     @PostConstruct
     public void init() {
         final var horizontalLayout = new HorizontalLayout();

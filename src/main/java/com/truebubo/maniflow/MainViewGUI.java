@@ -16,6 +16,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 import static com.truebubo.maniflow.ManiflowApplication.appName;
 
+/// Main page of the application
 @Route("")
 public class MainViewGUI extends VerticalLayout {
     private final StatsViewGUI statsViewGUI;
@@ -23,6 +24,7 @@ public class MainViewGUI extends VerticalLayout {
        this.statsViewGUI = statsViewGUI;
     }
 
+    /// Sets up the page
     @PostConstruct
     public void init() {
         final var title = new H1(appName);
