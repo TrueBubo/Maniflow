@@ -2,6 +2,7 @@ package com.truebubo.maniflow.stock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.truebubo.maniflow.money.CurrencyDesignation;
+import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
 /// Finds stock price with polygon api
+@Service
 public class PolygonStockPriceFinder implements StockPriceFinder {
     private String apiKey;
     private static PolygonStockPriceFinder instance;

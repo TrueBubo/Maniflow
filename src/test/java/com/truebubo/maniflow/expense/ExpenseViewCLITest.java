@@ -30,7 +30,7 @@ class ExpenseViewCLITest {
                     new Expense(BigDecimal.valueOf(5000), CurrencyDesignation.EUR, Instant.now())
             );
 
-            when(expenseService.getExpenses()).thenReturn(mockExpenses);
+            when(expenseService.get()).thenReturn(mockExpenses);
             new ExpenseViewCLI(expenseService).showExpenses();
         });
 

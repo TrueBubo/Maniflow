@@ -21,7 +21,7 @@ public class ExpenseViewCLI {
 
     /// Displays the list of all the expenses for the user
     public void showExpenses() {
-        List<Expense> expenses = expenseService.getExpenses();
+        List<Expense> expenses = expenseService.get();
         range(0, expenses.size()).forEach(idx -> {
             final var expense = expenses.get(idx);
             System.out.println(idx + 1 + ". " + expense.value() + expense.currencyDesignation());
@@ -32,7 +32,7 @@ public class ExpenseViewCLI {
     ///
     /// @param expense Information about the expense to be added
     public void addExpense(@NonNull Expense expense) {
-        expenseService.addExpense(expense);
+        expenseService.add(expense);
     }
 
     /// Change the value on the expense with given id
@@ -40,6 +40,6 @@ public class ExpenseViewCLI {
     /// @param id        ID identifying the expense. It is the left value displayed when calling showExpenses
     /// @param newAmount Will update the value to this value. If set to zero. The value will be removed
     public void changeExpense(int id, @NonNull BigDecimal newAmount) {
-        expenseService.changeExpense(id, newAmount);
+        expenseService.change(id, newAmount);
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.lang.NonNull;
 import java.math.BigDecimal;
 import java.util.Map;
 
-/// CLI Frontend for expense portion of the application
+/// CLI Frontend for statistics portion of the application
 public class StatsViewCLI {
     private final StatsService statsService;
 

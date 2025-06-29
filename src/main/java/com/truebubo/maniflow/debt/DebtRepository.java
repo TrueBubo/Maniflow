@@ -1,12 +1,14 @@
 package com.truebubo.maniflow.debt;
 
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 /// Interface used for dealing with storage and retrieval of debt
+@Repository
 public interface DebtRepository {
     /// Saves the debt to storage
     ///

@@ -1,9 +1,12 @@
 package com.truebubo.maniflow.stock;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
 /// Interface used for dealing with storage and retrieval of stock
+@Repository
 public interface StockRepository {
     /// Saves the stock to storage
     ///

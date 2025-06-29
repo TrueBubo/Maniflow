@@ -9,7 +9,7 @@ import com.truebubo.maniflow.options.CLIOptions;
 import com.truebubo.maniflow.stats.StatsService;
 import com.truebubo.maniflow.stats.StatsViewCLI;
 import com.truebubo.maniflow.stock.*;
-import com.truebubo.maniflow.maniflow.Help;
+import com.truebubo.maniflow.Help;
 import org.apache.commons.cli.*;
 
 import java.math.BigDecimal;
@@ -180,6 +180,8 @@ public final class CLI implements UIMode {
                     System.err.println("Unable to parse quantity: " + result[1]);
                 } catch (StockNotFoundException e) {
                     System.err.println("Unable to find stock: " + ticket);
+                } catch (NotEnoughMoneyToBuyException e) {
+                    System.err.println(e.getMessage());
                 }
 
                 return;

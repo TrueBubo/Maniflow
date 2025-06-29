@@ -6,7 +6,7 @@ import java.util.List;
 
 import static java.util.stream.IntStream.range;
 
-/// CLI Frontend for debt portion of the application
+/// CLI Frontend for stock portion of the application
 public class StockViewCLI {
     private final StockService stockService;
 
@@ -30,7 +30,7 @@ public class StockViewCLI {
     ///
     /// @param stock Stock bought
     /// @throws StockNotFoundException If stock was not found by API
-    public void buyStock(@NonNull Stock stock) throws StockNotFoundException {
+    public void buyStock(@NonNull Stock stock) throws StockNotFoundException, NotEnoughMoneyToBuyException {
         stockService.buyStock(stock);
     }
 

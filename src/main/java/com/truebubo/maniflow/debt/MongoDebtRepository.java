@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.lang.NonNull;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -19,6 +20,7 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
 /// Repository used for dealing with storage and retrieval of debts using MongoDB
+@Repository
 public class MongoDebtRepository implements DebtRepository {
     private final MongoCollection<Debt> debtCollection;
 
@@ -51,7 +53,7 @@ public class MongoDebtRepository implements DebtRepository {
     public Optional<Debt> changeDebt(int id, @NonNull BigDecimal newAmount) {
         return getDebt(id).map(debt -> {
             Instant createdAt = debt.created();
-            if (newAmount.equals(BigDecimal.ZERO)) {
+            if (newAmount.compareTo(BigDecimal.ZERO) <= 0) {
                 debtCollection.deleteOne(eq("created", createdAt));
                 return null;
             }

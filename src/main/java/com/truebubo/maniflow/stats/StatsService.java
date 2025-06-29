@@ -9,6 +9,7 @@ import com.truebubo.maniflow.money.CurrencyDesignation;
 import com.truebubo.maniflow.stock.Stock;
 import com.truebubo.maniflow.stock.StockService;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -18,7 +19,8 @@ import java.util.Map;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.reducing;
 
-/// Handles business logic behind income
+/// Handles business logic behind statistics
+@Service
 public class StatsService {
     private final IncomeService incomeService;
     private final ExpenseService expenseService;
@@ -45,28 +47,8 @@ public class StatsService {
     ///
     /// @return Stats for the user
     public Stats getMoneyStats() {
-        final Instant now = Instant.now();
-        Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.getIncomes().stream().collect(
-                groupingBy(Income::currencyDesignation,
-                        reducing(BigDecimal.ZERO, (Income income) -> income.value().multiply(BigDecimal.valueOf(
-                                        income.repeatsAfterDays() == null ? 1
-                                                : income.created().until(now, ChronoUnit.DAYS) / income.repeatsAfterDays() + 1
-                                )), BigDecimal::add
-                        )
-                )
-        );
 
-        expenseService.getExpenses().forEach(expense ->
-                ownsMoneyPerCurrency.put(expense.currencyDesignation(),
-                        ownsMoneyPerCurrency.getOrDefault(expense.currencyDesignation(), BigDecimal.ZERO)
-                                .subtract(expense.value().multiply(BigDecimal.valueOf(
-                                                expense.repeatsAfterDays() == null ? 1
-                                                        : expense.created().until(now, ChronoUnit.DAYS) / expense.repeatsAfterDays() + 1
-                                        )
-                                ))
-                )
-        );
-
+        Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = getOwnsMoneyPerCurrency(incomeService, expenseService);
         Map<String, BigDecimal> ownsStocksPerTicket = stockService.getStockHoldings().stream().collect(
                 groupingBy(Stock::ticket, reducing(BigDecimal.ZERO, Stock::volume, BigDecimal::add)
                 ));
@@ -76,5 +58,30 @@ public class StatsService {
         );
 
         return new Stats(ownsMoneyPerCurrency, ownsStocksPerTicket, owesMoneyPerCurrency);
+    }
+
+    public static Map<CurrencyDesignation, BigDecimal> getOwnsMoneyPerCurrency(IncomeService incomeService, ExpenseService expenseService) {
+        final Instant now = Instant.now();
+        Map<CurrencyDesignation, BigDecimal> ownsMoneyPerCurrency = incomeService.get().stream().collect(
+                groupingBy(Income::currencyDesignation,
+                        reducing(BigDecimal.ZERO, (Income income) -> income.value().multiply(BigDecimal.valueOf(
+                                        income.repeatsAfterDays() == null ? 1
+                                                : income.created().until(now, ChronoUnit.DAYS) / income.repeatsAfterDays() + 1
+                                )), BigDecimal::add
+                        )
+                )
+        );
+
+        expenseService.get().forEach(expense ->
+                ownsMoneyPerCurrency.put(expense.currencyDesignation(),
+                        ownsMoneyPerCurrency.getOrDefault(expense.currencyDesignation(), BigDecimal.ZERO)
+                                .subtract(expense.value().multiply(BigDecimal.valueOf(
+                                                expense.repeatsAfterDays() == null ? 1
+                                                        : expense.created().until(now, ChronoUnit.DAYS) / expense.repeatsAfterDays() + 1
+                                        )
+                                ))
+                )
+        );
+        return ownsMoneyPerCurrency;
     }
 }

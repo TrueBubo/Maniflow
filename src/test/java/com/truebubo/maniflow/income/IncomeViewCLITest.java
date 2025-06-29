@@ -29,7 +29,7 @@ class IncomeViewCLITest {
                     new Income(BigDecimal.valueOf(60000), CurrencyDesignation.CZK, Instant.now()),
                     new Income(BigDecimal.valueOf(5000), CurrencyDesignation.EUR, Instant.now())
             );
-            when(incomeService.getIncomes()).thenReturn(mockIncomes);
+            when(incomeService.get()).thenReturn(mockIncomes);
             new IncomeViewCLI(incomeService).showIncomes();
         });
 
