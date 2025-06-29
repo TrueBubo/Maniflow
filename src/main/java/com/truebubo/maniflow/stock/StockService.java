@@ -5,12 +5,14 @@ import com.truebubo.maniflow.expense.ExpenseRepository;
 import com.truebubo.maniflow.income.Income;
 import com.truebubo.maniflow.income.IncomeRepository;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
-/// Handles business logic behind expenses
+/// Handles business logic behind stocks
+@Service
 public class StockService {
     private final StockRepository stockRepository;
     private final StockPriceFinder stockPriceFinder;

@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import static com.mongodb.client.model.Filters.eq;
 import static java.util.Optional.ofNullable;
 
 /// Repository used for dealing with storage and retrieval of stock using MongoDB
+@Repository
 public class MongoStockRepository implements StockRepository {
     private final MongoCollection<Stock> stockCollection;
 

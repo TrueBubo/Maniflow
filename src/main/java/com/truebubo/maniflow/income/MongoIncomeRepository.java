@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import jakarta.annotation.Nullable;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -18,6 +19,7 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
 /// Repository used for dealing with storage and retrieval of income using MongoDB
+@Repository
 public class MongoIncomeRepository implements IncomeRepository {
     private final MongoCollection<Income> incomeCollection;
 

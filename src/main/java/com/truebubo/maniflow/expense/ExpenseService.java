@@ -1,11 +1,13 @@
 package com.truebubo.maniflow.expense;
 
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 /// Handles business logic behind expenses
+@Service
 public class ExpenseService {
     private final ExpenseRepository expenseRepository;
 

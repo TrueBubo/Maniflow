@@ -9,7 +9,7 @@ import com.truebubo.maniflow.options.CLIOptions;
 import com.truebubo.maniflow.stats.StatsService;
 import com.truebubo.maniflow.stats.StatsViewCLI;
 import com.truebubo.maniflow.stock.*;
-import com.truebubo.maniflow.maniflow.Help;
+import com.truebubo.maniflow.Help;
 import org.apache.commons.cli.*;
 
 import java.math.BigDecimal;

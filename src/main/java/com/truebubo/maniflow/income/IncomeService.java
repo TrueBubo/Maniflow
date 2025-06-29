@@ -1,11 +1,13 @@
 package com.truebubo.maniflow.income;
 
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 /// Handles business logic behind income
+@Service
 public class IncomeService {
     private final IncomeRepository incomeRepository;
 

@@ -1,5 +1,8 @@
 package com.truebubo.maniflow.ui_mode;
 
+import com.truebubo.maniflow.ManiflowApplication;
+import org.springframework.boot.SpringApplication;
+
 /// GUI front-end for maniflow system
 public final class GUI implements UIMode {
     /// Initializes services and GUI
@@ -7,7 +10,6 @@ public final class GUI implements UIMode {
     }
 
     public void start(String[] args) {
-        throw new UnsupportedOperationException("The GUI mode is not yet supported. Please use the CLI mode");
-        /* SpringApplication.run(ManiflowApplication.class, args); */
+        SpringApplication.run(ManiflowApplication.class, args);
     }
 }

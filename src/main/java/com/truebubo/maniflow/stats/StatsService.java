@@ -9,6 +9,7 @@ import com.truebubo.maniflow.money.CurrencyDesignation;
 import com.truebubo.maniflow.stock.Stock;
 import com.truebubo.maniflow.stock.StockService;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -18,7 +19,8 @@ import java.util.Map;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.reducing;
 
-/// Handles business logic behind income
+/// Handles business logic behind statistics
+@Service
 public class StatsService {
     private final IncomeService incomeService;
     private final ExpenseService expenseService;
