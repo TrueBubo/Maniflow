@@ -1,5 +1,6 @@
 package com.truebubo.maniflow;
 
+import com.truebubo.maniflow.debt.DebtViewGUI;
 import com.truebubo.maniflow.expense.ExpenseViewGUI;
 import com.truebubo.maniflow.income.IncomeViewGUI;
 import com.truebubo.maniflow.stats.StatsViewGUI;
@@ -22,12 +23,15 @@ public class MainViewGUI extends VerticalLayout {
     private final StatsViewGUI statsViewGUI;
     private final IncomeViewGUI incomeViewGUI;
     private final ExpenseViewGUI expenseViewGUI;
+    private final DebtViewGUI debtViewGUI;
+
     public MainViewGUI(@NonNull StatsViewGUI statsViewGUI,
                        @NonNull IncomeViewGUI incomeViewGUI,
-                       @NonNull ExpenseViewGUI expenseViewGUI) {
-       this.statsViewGUI = statsViewGUI;
-       this.incomeViewGUI = incomeViewGUI;
-       this.expenseViewGUI = expenseViewGUI;
+                       @NonNull ExpenseViewGUI expenseViewGUI, DebtViewGUI debtViewGUI) {
+        this.statsViewGUI = statsViewGUI;
+        this.incomeViewGUI = incomeViewGUI;
+        this.expenseViewGUI = expenseViewGUI;
+        this.debtViewGUI = debtViewGUI;
     }
 
     /// Sets up the page
@@ -42,6 +46,8 @@ public class MainViewGUI extends VerticalLayout {
         tabSheet.add("Statistics", statsViewGUI);
         tabSheet.add("Income", incomeViewGUI);
         tabSheet.add("Expense", expenseViewGUI);
+
+        tabSheet.add("Debt", debtViewGUI);
 
 
         tabSheet.addSelectedChangeListener(event -> {
