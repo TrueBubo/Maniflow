@@ -30,6 +30,6 @@ To see the all the commands available you can run
 `java -jar target/Maniflow.jar --help`
 
 ## Documentation
-Documentation is located in [here](docs/index.html)  
+Documentation is located in [here](https://truebubo.github.io/Maniflow/)  
 Documentation can be generated with  
 `./mvnw javadoc:javadoc`
