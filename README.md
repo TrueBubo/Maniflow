@@ -18,6 +18,7 @@ Example arguments for the application can be found below
 ```shell
 java -jar target/Maniflow.jar --gui
 ```
+The app will by default start at `localhost:8080`
 
 ### CLI
 ```shell
