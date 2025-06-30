@@ -23,7 +23,6 @@ public class ManiflowApplication {
         // Remove initialization mongo logs
         ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR);
 
-        args = new String[]{"-g"};
         UIMode mode = stream(args).anyMatch(arg -> arg.equals("-g") || arg.equals("--gui"))
                 ? new GUI()
                 : new CLI();

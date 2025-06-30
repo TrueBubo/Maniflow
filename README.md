@@ -7,13 +7,19 @@ Clone the repo: `git clone https://github.com/TrueBubo/Maniflow`
 Go to the project directory: `cd Maniflow`  
 Enter your Polygon API key in `api.properties`: `vim api.properties`  
 Start the MongoDB database: `sudo docker-compose up -d`  
-Build app: `./mvnw clean package`
+Build app: `./mvnw clean package -Pproduction`
 
 ## Running the app
 Example arguments for the application can be found below  
 `java -jar target/Maniflow.jar <Application arguments>`
 
 ## Example usage
+### GUI
+```shell
+java -jar target/Maniflow.jar --gui
+```
+
+### CLI
 ```shell
 java -jar target/Maniflow.jar --add-income 2000 --currency USD
 java -jar target/Maniflow.jar --buy-stock AAPL-1.3
@@ -24,6 +30,6 @@ To see the all the commands available you can run
 `java -jar target/Maniflow.jar --help`
 
 ## Documentation
-Documentation is located in [here](docs/index.html)  
+Documentation is located in [here](https://truebubo.github.io/Maniflow/)  
 Documentation can be generated with  
 `./mvnw javadoc:javadoc`
