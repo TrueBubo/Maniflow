@@ -47,6 +47,7 @@ public class StockService {
     ///
     /// @param stock Information about the stock bought
     /// @throws StockNotFoundException Stock was not found by an API
+    /// @throws NotEnoughMoneyToBuyException The price of stocks to be bought is higher than money the user owns
     public void buyStock(@NonNull Stock stock) throws StockNotFoundException, NotEnoughMoneyToBuyException {
         var stockPrice = stockPriceFinder.find(stock.ticket());
         if (stockPrice.isEmpty()) {
