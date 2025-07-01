@@ -1,4 +1,5 @@
 # Maniflow
+![Build](https://github.com/TrueBubo/Maniflow/actions/workflows/ci.yml/badge.svg)
 ![Java](https://img.shields.io/badge/Java-24-blue)
 ![License](https://img.shields.io/github/license/TrueBubo/Maniflow)
 
