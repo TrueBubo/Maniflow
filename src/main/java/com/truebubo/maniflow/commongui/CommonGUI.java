@@ -110,17 +110,19 @@ public class CommonGUI {
             ComponentEventListener<ClickEvent<Icon>> onDelete) {
         final var roundedValue = exchange.value().setScale(decimalRoundingDigits, RoundingMode.HALF_DOWN);
         final var time = timeFormatter.format(exchange.created().atZone(ZoneId.systemDefault()));
-        final var repeatSuffix = (exchange.repeatsAfterDays() != null) ? " every " + exchange.repeatsAfterDays() + " days" : "";
+        final var repeatSuffix = (exchange.repeatsAfterDays() != null) ? " every " +
+                ((exchange.repeatsAfterDays() == 1) ? "day" : exchange.repeatsAfterDays() + " days") :
+                "";
 
 
         Div row = new Div();
         row.getStyle()
                 .set("display", "flex")
-                .set("justify-content", "space-between");
+                .set("justify-content", "flex-start");
 
         final var text = new Span(time + " - " + roundedValue + exchange.currencyDesignation() + repeatSuffix);
         final var trash = getTrash(onDelete);
-        row.add(text, trash);
+        row.add(trash, text);
 
         return row;
     }

@@ -42,7 +42,6 @@ public class MainViewGUI extends VerticalLayout {
         final var verticalLayout = new VerticalLayout();
         verticalLayout.setId("app");
 
-
         final var title = new H1(appName);
         final var tabSheet = new TabSheet();
         tabSheet.addThemeVariants(TabSheetVariant.LUMO_TABS_CENTERED);

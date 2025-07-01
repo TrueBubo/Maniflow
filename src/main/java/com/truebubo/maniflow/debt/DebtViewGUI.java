@@ -75,11 +75,17 @@ public class DebtViewGUI extends VerticalLayout {
             final var time = timeFormatter.format(debt.created().atZone(ZoneId.systemDefault()));
             final var roundedDebt = debt.getValueWithInterest().setScale(decimalRoundingDigits, RoundingMode.HALF_DOWN);
             final var text = new Span(time + " - " + roundedDebt + debt.currencyDesignation() + " " + debt.yearlyInterest() + "%\n");
+
+            final var payDebtDiv = new Div();
+            payDebtDiv.getStyle()
+                    .set("display", "flex")
+                    .set("justify-content", "flex-end");
             final var payDebtLabel = new Span("Pay");
             payDebtLabel.getStyle().set("color", "gray").setPaddingLeft("3em").setPaddingRight("0.5em");
             final var payDebtField = new BigDecimalField();
             payDebtField.addThemeVariants(TextFieldVariant.LUMO_SMALL);
             payDebtField.getStyle().setPadding("0 0");
+            payDebtDiv.add(payDebtLabel, payDebtField);
 
             payDebtField.setSuffixComponent(new Span(String.valueOf(debt.currencyDesignation())));
             payDebtField.addKeyPressListener(Key.ENTER, _ -> {
@@ -88,7 +94,7 @@ public class DebtViewGUI extends VerticalLayout {
                 init();
             });
 
-            row.add(text, payDebtLabel, payDebtField);
+            row.add(text, payDebtDiv);
 
             debtsDiv.add(row);
         });
